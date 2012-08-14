@@ -5,6 +5,8 @@
 //  Created by Jonathan Beilin on 8/13/12.
 //  Copyright (c) 2012 DIY. All rights reserved.
 //
+//  Thanks to Sam Vermette for sharing good ideas and clean
+//  code for managing a singleton overlay view in SVProgressHUD.
 
 #import <UIKit/UIKit.h>
 

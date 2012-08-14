@@ -57,6 +57,11 @@
     [[DIYHeaderMenu sharedView] dismissMenu];
 }
 
++ (BOOL)isActivated
+{
+    return [DIYHeaderMenu sharedView].isActivated;
+}
+
 
 #pragma mark - Getters
 
@@ -79,9 +84,6 @@
 - (void)showMenu
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        
-        NSLog(@"show");
-        
         // Add self to overlayWindow then make the window key for MAXIMUM BLOCKAGE
         if (!self.superview) {
             [self.overlayWindow addSubview:self];
@@ -97,14 +99,18 @@
         
         [self setNeedsDisplay];
     });
+    
+    self.isActivated = true;
+    
+    // Delegate call
+    if ([self.delegate respondsToSelector:@selector(menuActivated)]) {
+        [self.delegate performSelectorOnMainThread:@selector(menuActivated) withObject:nil waitUntilDone:false];
+    }
 }
 
 - (void)dismissMenu
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-       
-        NSLog(@"dismiss");
-        
+    dispatch_async(dispatch_get_main_queue(), ^{        
         [UIView animateWithDuration:0.2f animations:^{
             self.overlayWindow.alpha = 0.0f;
         } completion:^(BOOL finished) {
@@ -118,6 +124,8 @@
             }];
         }];
     });
+    
+    self.isActivated = false;
 }
 
 #pragma mark - Drawing
@@ -133,8 +141,10 @@
 
 - (void)tappedBackground
 {
-    NSLog(@"tapped background");
     [self dismissMenu];
+    if ([self.delegate respondsToSelector:@selector(menuCancelled)]) {
+        [self.delegate performSelectorOnMainThread:@selector(menuCancelled) withObject:nil waitUntilDone:false];
+    }
 }
 
 #pragma mark - Item management
