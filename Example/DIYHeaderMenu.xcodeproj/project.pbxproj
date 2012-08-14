@@ -37,6 +37,7 @@
 		DE02A61715D9D9450088E687 /* DIYViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIYViewController.h; sourceTree = "<group>"; };
 		DE02A61815D9D9450088E687 /* DIYViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIYViewController.m; sourceTree = "<group>"; };
 		DE02A61915D9D9450088E687 /* DIYViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DIYViewController.xib; sourceTree = "<group>"; };
+		DE9CED3E15DAC4840051496B /* DIYHeaderOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DIYHeaderOptions.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +114,7 @@
 				DE02A61215D9AA950088E687 /* DIYHeaderMenu.m */,
 				DE02A61415D9ABA40088E687 /* DIYHeaderItem.h */,
 				DE02A61515D9ABA40088E687 /* DIYHeaderItem.m */,
+				DE9CED3E15DAC4840051496B /* DIYHeaderOptions.h */,
 			);
 			name = DIYHeaderMenu;
 			path = ../DIYHeaderMenu;
