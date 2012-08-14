@@ -7,6 +7,7 @@
 //
 
 #import "DIYViewController.h"
+#import "DIYHeaderMenu.h"
 
 @interface DIYViewController ()
 
@@ -29,8 +30,10 @@
 
 #pragma mark - UI
 
-
-
+- (IBAction)showMenu:(id)sender
+{
+    [DIYHeaderMenu show];
+}
 
 #pragma mark - Rotation
 
