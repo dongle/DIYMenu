@@ -15,6 +15,8 @@
 		DE02A60115D99FAB0088E687 /* DIYAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DE02A60015D99FAB0088E687 /* DIYAppDelegate.m */; };
 		DE02A61315D9AA950088E687 /* DIYHeaderMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = DE02A61215D9AA950088E687 /* DIYHeaderMenu.m */; };
 		DE02A61615D9ABA40088E687 /* DIYHeaderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = DE02A61515D9ABA40088E687 /* DIYHeaderItem.m */; };
+		DE02A61A15D9D9450088E687 /* DIYViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE02A61815D9D9450088E687 /* DIYViewController.m */; };
+		DE02A61B15D9D9450088E687 /* DIYViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE02A61915D9D9450088E687 /* DIYViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,9 @@
 		DE02A61215D9AA950088E687 /* DIYHeaderMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIYHeaderMenu.m; sourceTree = "<group>"; };
 		DE02A61415D9ABA40088E687 /* DIYHeaderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIYHeaderItem.h; sourceTree = "<group>"; };
 		DE02A61515D9ABA40088E687 /* DIYHeaderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIYHeaderItem.m; sourceTree = "<group>"; };
+		DE02A61715D9D9450088E687 /* DIYViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIYViewController.h; sourceTree = "<group>"; };
+		DE02A61815D9D9450088E687 /* DIYViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIYViewController.m; sourceTree = "<group>"; };
+		DE02A61915D9D9450088E687 /* DIYViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DIYViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +86,9 @@
 			children = (
 				DE02A5FF15D99FAB0088E687 /* DIYAppDelegate.h */,
 				DE02A60015D99FAB0088E687 /* DIYAppDelegate.m */,
+				DE02A61715D9D9450088E687 /* DIYViewController.h */,
+				DE02A61815D9D9450088E687 /* DIYViewController.m */,
+				DE02A61915D9D9450088E687 /* DIYViewController.xib */,
 				DE02A5F715D99FAB0088E687 /* Supporting Files */,
 			);
 			name = Example;
@@ -163,6 +171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE02A5FB15D99FAB0088E687 /* InfoPlist.strings in Resources */,
+				DE02A61B15D9D9450088E687 /* DIYViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +186,7 @@
 				DE02A60115D99FAB0088E687 /* DIYAppDelegate.m in Sources */,
 				DE02A61315D9AA950088E687 /* DIYHeaderMenu.m in Sources */,
 				DE02A61615D9ABA40088E687 /* DIYHeaderItem.m in Sources */,
+				DE02A61A15D9D9450088E687 /* DIYViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,7 +225,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -234,7 +244,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
