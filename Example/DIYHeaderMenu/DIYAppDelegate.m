@@ -26,6 +26,7 @@
     
     DIYViewController *vc = [[DIYViewController alloc] init];
     self.window.rootViewController = vc;
+    [vc release];
     
     return YES;
 }
