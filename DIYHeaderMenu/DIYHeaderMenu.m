@@ -8,66 +8,151 @@
 
 #import "DIYHeaderMenu.h"
 #import "DIYHeaderItem.h"
+#import "DIYHeaderOptions.h"
 
 @interface DIYHeaderMenu ()
-
-@property (nonatomic, retain) NSMutableArray *items;
-@property (nonatomic, assign) CGRect itemFrame;
-@property (nonatomic, retain, readonly) UIWindow *overlayWindow;
 
 @end
 
 @implementation DIYHeaderMenu
 
-// Private
 @synthesize items = _items;
-@synthesize itemFrame = _itemFrame;
 @synthesize overlayWindow = _overlayWindow;
-
-// Public
 @synthesize isActivated = _isActivated;
+@synthesize itemFrame = _itemFrame;
+
 @synthesize currentItem = _currentItem;
 
 #pragma mark - Init
 
 - (id)initWithFrame:(CGRect)frame
 {
-    CGRect screenFrame = [UIScreen mainScreen].bounds;
-    self = [super initWithFrame:screenFrame];
+    self = [super initWithFrame:frame];
     if (self) {
-        _itemFrame = frame;
+        _itemFrame = ITEMFRAME;
     }
     return self;
 }
 
-#pragma mark - Show methods
+#pragma mark - Class methods
 
-- (void)show
++ (DIYHeaderMenu *)sharedView
+{
+    static dispatch_once_t once;
+    static DIYHeaderMenu *sharedView;
+    dispatch_once(&once, ^{
+        sharedView = [[DIYHeaderMenu alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        sharedView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5f];
+    });
+    return sharedView;
+}
+
++ (void)show
+{
+    [[DIYHeaderMenu sharedView] showMenu];
+}
+
++ (void)dismiss
+{
+    [[DIYHeaderMenu sharedView] dismissMenu];
+}
+
+
+#pragma mark - Getters
+
+- (UIWindow *)overlayWindow {
+    if(!self->_overlayWindow) {
+        _overlayWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        self->_overlayWindow.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        self->_overlayWindow.backgroundColor = [UIColor blackColor];
+        self->_overlayWindow.alpha = 0.0f;
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedBackground)];
+        [self->_overlayWindow addGestureRecognizer:tap];
+        [tap release];
+    }
+    return self->_overlayWindow;
+}
+
+#pragma mark - Show and Dismiss methods
+
+- (void)showMenu
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        NSLog(@"show");
+        
+        // Add self to overlayWindow then make the window key for MAXIMUM BLOCKAGE
+        if (!self.superview) {
+            [self.overlayWindow addSubview:self];
+        }
+        
+        [self.overlayWindow makeKeyAndVisible];
+        
+        [UIView animateWithDuration:0.2f animations:^{
+            self.overlayWindow.alpha = 0.75f;
+        }];
+        
+        // slide in menu
+        
+        [self setNeedsDisplay];
+    });
+}
+
+- (void)dismissMenu
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+       
+        NSLog(@"dismiss");
+        
+        [UIView animateWithDuration:0.2f animations:^{
+            self.overlayWindow.alpha = 0.0f;
+        } completion:^(BOOL finished) {
+            [_overlayWindow release], _overlayWindow = nil;
+            
+            [[UIApplication sharedApplication].windows enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(UIWindow *window, NSUInteger idx, BOOL *stop) {
+                if ([window isKindOfClass:[UIWindow class]] && window.windowLevel == UIWindowLevelNormal) {
+                    [window makeKeyWindow];
+                    *stop = YES;
+                }
+            }];
+        }];
+    });
+}
+
+#pragma mark - Drawing
+
+/*
+- (void)drawRect:(CGRect)rect
 {
     
 }
+ */
 
-#pragma mark - Dismiss methods
+#pragma mark - UI
 
-- (void)dismiss
+- (void)tappedBackground
 {
-    
+    NSLog(@"tapped background");
+    [self dismissMenu];
 }
 
 #pragma mark - Item management
 - (void)addItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color
 {
     DIYHeaderItem *item = [[DIYHeaderItem alloc] initWithFrame:self.itemFrame];
-    [item setName:name ]
+    [item setName:name withIcon:image withColor:color];
     
-    
+    [self.items addObject:item];
+    [self addSubview:item];
+    [item release];
 }
 
 #pragma mark - Dealloc
 
 - (void)releaseObjects
 {
-    
+    [_items release], _items = nil;
 }
 
 - (void)dealloc

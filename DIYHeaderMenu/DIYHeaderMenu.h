@@ -19,23 +19,21 @@
 @end
 
 @interface DIYHeaderMenu : UIView {
-    /*
-@private
-    NSMutableArray *_items;
-    UIWindow *_overlayWindow;
-     */
+
 }
 
 @property (assign) NSObject<DIYHeaderMenuDelegate> *delegate;
 
+@property (nonatomic, retain) NSMutableArray *items;
+@property (nonatomic, assign) UIWindow *overlayWindow;
 @property (nonatomic, assign) BOOL isActivated;
-
-// TODO: make private
+@property (nonatomic, assign) CGRect itemFrame;
 @property (nonatomic, assign) DIYHeaderItem *currentItem;
 
 - (void)addItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color;
 
-- (void)show;
-- (void)dismiss;
++ (void)show;
++ (void)dismiss;
++ (BOOL)isActivated;
 
 @end
