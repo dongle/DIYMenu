@@ -13,6 +13,8 @@
 		DE02A5FB15D99FAB0088E687 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DE02A5F915D99FAB0088E687 /* InfoPlist.strings */; };
 		DE02A5FD15D99FAB0088E687 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DE02A5FC15D99FAB0088E687 /* main.m */; };
 		DE02A60115D99FAB0088E687 /* DIYAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DE02A60015D99FAB0088E687 /* DIYAppDelegate.m */; };
+		DE02A61315D9AA950088E687 /* DIYHeaderMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = DE02A61215D9AA950088E687 /* DIYHeaderMenu.m */; };
+		DE02A61615D9ABA40088E687 /* DIYHeaderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = DE02A61515D9ABA40088E687 /* DIYHeaderItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,10 @@
 		DE02A5FE15D99FAB0088E687 /* DIYHeaderMenu-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DIYHeaderMenu-Prefix.pch"; sourceTree = "<group>"; };
 		DE02A5FF15D99FAB0088E687 /* DIYAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DIYAppDelegate.h; sourceTree = "<group>"; };
 		DE02A60015D99FAB0088E687 /* DIYAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DIYAppDelegate.m; sourceTree = "<group>"; };
+		DE02A61115D9AA950088E687 /* DIYHeaderMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIYHeaderMenu.h; sourceTree = "<group>"; };
+		DE02A61215D9AA950088E687 /* DIYHeaderMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIYHeaderMenu.m; sourceTree = "<group>"; };
+		DE02A61415D9ABA40088E687 /* DIYHeaderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIYHeaderItem.h; sourceTree = "<group>"; };
+		DE02A61515D9ABA40088E687 /* DIYHeaderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIYHeaderItem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,7 +51,8 @@
 		DE02A5E115D99FAB0088E687 = {
 			isa = PBXGroup;
 			children = (
-				DE02A5F615D99FAB0088E687 /* DIYHeaderMenu */,
+				DE02A61015D9A9650088E687 /* DIYHeaderMenu */,
+				DE02A5F615D99FAB0088E687 /* Example */,
 				DE02A5EF15D99FAB0088E687 /* Frameworks */,
 				DE02A5ED15D99FAB0088E687 /* Products */,
 			);
@@ -69,13 +76,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		DE02A5F615D99FAB0088E687 /* DIYHeaderMenu */ = {
+		DE02A5F615D99FAB0088E687 /* Example */ = {
 			isa = PBXGroup;
 			children = (
 				DE02A5FF15D99FAB0088E687 /* DIYAppDelegate.h */,
 				DE02A60015D99FAB0088E687 /* DIYAppDelegate.m */,
 				DE02A5F715D99FAB0088E687 /* Supporting Files */,
 			);
+			name = Example;
 			path = DIYHeaderMenu;
 			sourceTree = "<group>";
 		};
@@ -88,6 +96,18 @@
 				DE02A5FE15D99FAB0088E687 /* DIYHeaderMenu-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DE02A61015D9A9650088E687 /* DIYHeaderMenu */ = {
+			isa = PBXGroup;
+			children = (
+				DE02A61115D9AA950088E687 /* DIYHeaderMenu.h */,
+				DE02A61215D9AA950088E687 /* DIYHeaderMenu.m */,
+				DE02A61415D9ABA40088E687 /* DIYHeaderItem.h */,
+				DE02A61515D9ABA40088E687 /* DIYHeaderItem.m */,
+			);
+			name = DIYHeaderMenu;
+			path = ../DIYHeaderMenu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -155,6 +175,8 @@
 			files = (
 				DE02A5FD15D99FAB0088E687 /* main.m in Sources */,
 				DE02A60115D99FAB0088E687 /* DIYAppDelegate.m in Sources */,
+				DE02A61315D9AA950088E687 /* DIYHeaderMenu.m in Sources */,
+				DE02A61615D9ABA40088E687 /* DIYHeaderItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,6 +282,7 @@
 				DE02A60615D99FAB0088E687 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
