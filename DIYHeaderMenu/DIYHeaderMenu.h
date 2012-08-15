@@ -14,7 +14,7 @@
 
 @protocol DIYHeaderMenuDelegate <NSObject>
 @required
-- (void)menuItemSelected:(DIYHeaderItem *)item;
+- (void)menuItemSelected:(NSString *)action;
 @optional
 - (void)menuActivated;
 - (void)menuCancelled;
@@ -29,10 +29,9 @@
 @property (nonatomic, retain) NSMutableArray *items;
 @property (nonatomic, assign) UIWindow *overlayWindow;
 @property (nonatomic, assign) BOOL isActivated;
-@property (nonatomic, assign) CGRect itemFrame;
 @property (nonatomic, assign) DIYHeaderItem *currentItem;
 
-- (void)addItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color;
++ (void)addMenuItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color;
 
 + (void)show;
 + (void)dismiss;

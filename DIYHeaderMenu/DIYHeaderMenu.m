@@ -19,7 +19,6 @@
 @synthesize items = _items;
 @synthesize overlayWindow = _overlayWindow;
 @synthesize isActivated = _isActivated;
-@synthesize itemFrame = _itemFrame;
 
 @synthesize currentItem = _currentItem;
 
@@ -29,7 +28,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _itemFrame = ITEMFRAME;
+        //
     }
     return self;
 }
@@ -60,6 +59,11 @@
 + (BOOL)isActivated
 {
     return [DIYHeaderMenu sharedView].isActivated;
+}
+
++ (void)addMenuItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color
+{
+    [[DIYHeaderMenu sharedView] addItem:name withIcon:image withColor:color];
 }
 
 
@@ -148,9 +152,23 @@
 }
 
 #pragma mark - Item management
+
+/* UGH this is way too long fml
+- (void)addHeaderWithDismissIcon:(UIImage *)dismissImage withColor:(UIColor *)color withTitle:(NSString *)title withButtonImage:(UIImage *)buttonImage withButtonName:(NSString *)buttonName
+{
+    
+}
+ */
+
 - (void)addItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color
 {
-    DIYHeaderItem *item = [[DIYHeaderItem alloc] initWithFrame:self.itemFrame];
+    UIApplication *application = [UIApplication sharedApplication];
+    
+    float statusBarPadding = application.statusBarHidden ? 0 : application.statusBarFrame.size.height;
+    
+    int itemCount = [self.items count];
+    CGRect itemFrame = CGRectMake(0, statusBarPadding + itemCount*ITEMHEIGHT, self.frame.size.width, ITEMHEIGHT);
+    DIYHeaderItem *item = [[DIYHeaderItem alloc] initWithFrame:itemFrame];
     [item setName:name withIcon:image withColor:color];
     
     [self.items addObject:item];

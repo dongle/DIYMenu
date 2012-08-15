@@ -14,6 +14,6 @@
 @property (nonatomic, retain) UIImageView *icon;
 @property (nonatomic, assign) BOOL isSelected;
 
-- (void)setName:(UILabel *)name withIcon:(UIImage *)image withColor:(UIColor *)color;
+- (void)setName:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color;
 
 @end

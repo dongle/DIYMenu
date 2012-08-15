@@ -9,6 +9,9 @@
 #ifndef DIYHeaderMenu_DIYHeaderOptions_h
 #define DIYHeaderMenu_DIYHeaderOptions_h
 
-#define ITEMFRAME CGRectMake(0,0,140,50)
+#define ITEMHEIGHT 47
+
+#define ICONPADDING 10
+#define ICONSIZE 27
 
 #endif

@@ -7,6 +7,7 @@
 //
 
 #import "DIYHeaderItem.h"
+#import "DIYHeaderOptions.h"
 
 @interface DIYHeaderItem ()
 
@@ -18,20 +19,22 @@
 @synthesize icon = _icon;
 @synthesize isSelected = _isSelected;
 
-#pragma mark - Init
+#pragma mark - Init & Setup
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-
-- (void)initWithFrame:(CGRect)frame withName:(NSString *)name withIcon:(UIImage *)icon
-{
+- (void)setName:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color
+{    
+    CGRect labelFrame = CGRectMake(2*ICONPADDING + ICONSIZE, ICONPADDING, self.frame.size.width, ICONSIZE);
+    _name = [[UILabel alloc] initWithFrame:labelFrame];
+    self.name.backgroundColor = [UIColor clearColor];
+    self.name.textColor = [UIColor whiteColor];
+    self.name.text = name;
+    [self addSubview:self.name];
     
+    _icon = [[UIImageView alloc] initWithImage:image];
+    self.icon.frame = CGRectMake(ICONPADDING, ICONPADDING, ICONSIZE, ICONSIZE);
+    [self addSubview:self.icon];
+    
+    self.backgroundColor = color;
 }
 
 #pragma mark - Dealloc
