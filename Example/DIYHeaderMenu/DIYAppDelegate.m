@@ -23,11 +23,20 @@
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     self.window.backgroundColor = [UIColor whiteColor];
     
+    //
     // Set up the menu
-    [DIYHeaderMenu addMenuItem:@"Portfolio" withIcon:[UIImage imageNamed:@"testIcon1@2x.png"] withColor:[UIColor colorWithRed:0.18f green:0.76f blue:0.93f alpha:1.0f]];
-    [DIYHeaderMenu addMenuItem:@"Skills" withIcon:[UIImage imageNamed:@"testIcon1@2x.png"] withColor:[UIColor colorWithRed:0.28f green:0.55f blue:0.95f alpha:1.0f]];
-    [DIYHeaderMenu addMenuItem:@"Explore" withIcon:[UIImage imageNamed:@"testIcon1@2x.png"] withColor:[UIColor colorWithRed:0.47f green:0.24f blue:0.93f alpha:1.0f]];
-    [DIYHeaderMenu addMenuItem:@"Settings" withIcon:[UIImage imageNamed:@"testIcon1@2x.png"] withColor:[UIColor colorWithRed:0.57f green:0.0f blue:0.85f alpha:1.0f]];
+    //
+    
+    // Set up the titlebar
+    [DIYHeaderMenu setTitle:@"Menu" withDismissIcon:[UIImage imageNamed:@"dismissIcon@2x.png"] withColor:[UIColor colorWithRed:0.34f green:0.47f blue:0.78f alpha:1.0f]];
+    
+    // Add menu items
+    [DIYHeaderMenu addMenuItem:@"Portfolio" withIcon:[UIImage imageNamed:@"portfolioIcon@2x.png"] withColor:[UIColor colorWithRed:0.18f green:0.76f blue:0.93f alpha:1.0f]];
+    [DIYHeaderMenu addMenuItem:@"Skills" withIcon:[UIImage imageNamed:@"skillsIcon@2x.png"] withColor:[UIColor colorWithRed:0.28f green:0.55f blue:0.95f alpha:1.0f]];
+    [DIYHeaderMenu addMenuItem:@"Explore" withIcon:[UIImage imageNamed:@"exploreIcon@2x.png"] withColor:[UIColor colorWithRed:0.47f green:0.24f blue:0.93f alpha:1.0f]];
+    [DIYHeaderMenu addMenuItem:@"Settings" withIcon:[UIImage imageNamed:@"settingsIcon@2x.png"] withColor:[UIColor colorWithRed:0.57f green:0.0f blue:0.85f alpha:1.0f]];
+    
+    //
     
     // A view controller with a button to show the menu
     DIYViewController *vc = [[DIYViewController alloc] init];
