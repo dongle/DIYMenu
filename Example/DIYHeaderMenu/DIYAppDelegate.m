@@ -8,7 +8,6 @@
 
 #import "DIYAppDelegate.h"
 #import "DIYViewController.h"
-#import "DIYHeaderMenu.h"
 
 @implementation DIYAppDelegate
 
@@ -26,6 +25,8 @@
     //
     // Set up the menu
     //
+    
+    [DIYHeaderMenu setDelegate:self];
     
     // Set up the titlebar
     [DIYHeaderMenu setTitle:@"Menu" withDismissIcon:[UIImage imageNamed:@"dismissIcon@2x.png"] withColor:[UIColor colorWithRed:0.34f green:0.47f blue:0.78f alpha:1.0f]];
@@ -47,31 +48,21 @@
     return YES;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application
+#pragma mark - DIYHeaderMenuDelegate
+
+- (void)menuItemSelected:(NSString *)action
 {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    NSLog(@"Delegate: selected: %@", action);
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
+- (void)menuActivated
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    NSLog(@"Delegate: menuActivated");
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application
+- (void)menuCancelled
 {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    NSLog(@"Delegate: menuCancelled");
 }
 
 @end

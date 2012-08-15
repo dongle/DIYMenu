@@ -41,6 +41,8 @@
 @property (nonatomic, assign) UIWindow *overlayWindow;
 @property (nonatomic, assign) UIView *blockingView;
 
++ (void)setDelegate:(NSObject<DIYHeaderMenuDelegate> *)delegate;
+
 + (void)setTitle:(NSString *)title withDismissIcon:(UIImage *)dismissImage withColor:(UIColor *)color;
 + (void)addTitleButton:(NSString *)name withIcon:(UIImage *)image;
 + (void)addMenuItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color;

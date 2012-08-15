@@ -67,6 +67,11 @@
     return [DIYHeaderMenu sharedView].isActivated;
 }
 
++ (void)setDelegate:(NSObject<DIYHeaderMenuDelegate> *)delegate
+{
+    [DIYHeaderMenu sharedView].delegate = delegate;
+}
+
 + (void)setTitle:(NSString *)title withDismissIcon:(UIImage *)dismissImage withColor:(UIColor *)color
 {
     [[DIYHeaderMenu sharedView] setTitle:title withDismissIcon:dismissImage withColor:color];
