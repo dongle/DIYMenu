@@ -8,6 +8,7 @@
 
 #import "DIYAppDelegate.h"
 #import "DIYViewController.h"
+#import "DIYHeaderMenu.h"
 
 @implementation DIYAppDelegate
 
@@ -20,14 +21,17 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
     
+    // Set up the menu
+    [DIYHeaderMenu addMenuItem:@"test" withIcon:[UIImage imageNamed:@"testIcon1@2x.png"] withColor:[UIColor blueColor]];
+    
+    // A view controller with a button to show the menu
     DIYViewController *vc = [[DIYViewController alloc] init];
     self.window.rootViewController = vc;
     [vc release];
-    
+
+    [self.window makeKeyAndVisible];
     return YES;
 }
 
