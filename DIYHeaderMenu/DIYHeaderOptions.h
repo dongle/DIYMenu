@@ -14,4 +14,7 @@
 #define ICONPADDING 10
 #define ICONSIZE 27
 
+#define FONT_FAMILY @"Helvetica-Neue"
+#define FONT_SIZE 32
+
 #endif

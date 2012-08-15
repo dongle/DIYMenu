@@ -27,6 +27,7 @@
     _name = [[UILabel alloc] initWithFrame:labelFrame];
     self.name.backgroundColor = [UIColor clearColor];
     self.name.textColor = [UIColor whiteColor];
+    self.name.font = [UIFont fontWithName:FONT_FAMILY size:FONT_SIZE];
     self.name.text = name;
     [self addSubview:self.name];
     
