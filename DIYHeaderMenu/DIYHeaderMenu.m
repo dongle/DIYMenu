@@ -16,11 +16,17 @@
 
 @implementation DIYHeaderMenu
 
-@synthesize items = _items;
-@synthesize overlayWindow = _overlayWindow;
-@synthesize isActivated = _isActivated;
 
+@synthesize menuItems = _menuItems;
+@synthesize titleButtonNames = _titleButtonNames;
+
+@synthesize isActivated = _isActivated;
 @synthesize currentItem = _currentItem;
+
+@synthesize titleBar = _titleBar;
+
+@synthesize overlayWindow = _overlayWindow;
+@synthesize blockingView = _blockingView;
 
 #pragma mark - Init
 
@@ -28,7 +34,8 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _items = [[NSMutableArray alloc] init];
+        _menuItems = [[NSMutableArray alloc] init];
+        _titleBar = nil;
     }
     return self;
 }
@@ -41,7 +48,6 @@
     static DIYHeaderMenu *sharedView;
     dispatch_once(&once, ^{
         sharedView = [[DIYHeaderMenu alloc] initWithFrame:[UIScreen mainScreen].bounds];
-        sharedView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5f];
     });
     return sharedView;
 }
@@ -61,6 +67,16 @@
     return [DIYHeaderMenu sharedView].isActivated;
 }
 
++ (void)setTitle:(NSString *)title withDismissIcon:(UIImage *)dismissImage withColor:(UIColor *)color
+{
+    [[DIYHeaderMenu sharedView] setTitle:title withDismissIcon:dismissImage withColor:color];
+}
+
++ (void)addTitleButton:(NSString *)name withIcon:(UIImage *)image
+{
+    
+}
+
 + (void)addMenuItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color
 {
     [[DIYHeaderMenu sharedView] addItem:name withIcon:image withColor:color];
@@ -69,7 +85,8 @@
 
 #pragma mark - Getters
 
-- (UIWindow *)overlayWindow {
+- (UIWindow *)overlayWindow
+{
     if(!self->_overlayWindow) {
         _overlayWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         self->_overlayWindow.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -151,28 +168,48 @@
     }
 }
 
-#pragma mark - Item management
-
-/* UGH this is way too long fml
-- (void)addHeaderWithDismissIcon:(UIImage *)dismissImage withColor:(UIColor *)color withTitle:(NSString *)title withButtonImage:(UIImage *)buttonImage withButtonName:(NSString *)buttonName
+- (void)tappedAction:(UIGestureRecognizer *)gesture
 {
     
 }
- */
+
+#pragma mark - Item management
+
+- (void)setTitle:(NSString *)title withDismissIcon:(UIImage *)dismissImage withColor:(UIColor *)color
+{
+    if (_titleBar == nil) {
+        UIApplication *application = [UIApplication sharedApplication];
+        float padding = application.statusBarHidden ? 0 : application.statusBarFrame.size.height;
+        _titleBar = [[DIYHeaderItem alloc] initWithFrame:CGRectMake(0, padding, self.frame.size.width, ITEMHEIGHT)];
+        
+        [self.titleBar setName:title withIcon:dismissImage withColor:color];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedBackground)];
+        [self.titleBar.icon addGestureRecognizer:tap];
+        [tap release];
+        
+        [self addSubview:self.titleBar];
+    }
+}
 
 - (void)addItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color
 {
     UIApplication *application = [UIApplication sharedApplication];
     
-    float statusBarPadding = application.statusBarHidden ? 0 : application.statusBarFrame.size.height;
+    float padding = application.statusBarHidden ? 0 : application.statusBarFrame.size.height;
+    padding += self.titleBar ? ITEMHEIGHT : 0;
     
-    int itemCount = [self.items count];
-    NSLog(@"Items: %i", itemCount);
-    CGRect itemFrame = CGRectMake(0, statusBarPadding + itemCount*ITEMHEIGHT, self.frame.size.width, ITEMHEIGHT);
+    int itemCount = [self.menuItems count];
+    
+    CGRect itemFrame = CGRectMake(0, padding + itemCount*ITEMHEIGHT, self.frame.size.width, ITEMHEIGHT);
     DIYHeaderItem *item = [[DIYHeaderItem alloc] initWithFrame:itemFrame];
     [item setName:name withIcon:image withColor:color];
     
-    [self.items addObject:item];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedAction:)];
+    [item addGestureRecognizer:tap];
+    [tap release];
+    
+    [self.menuItems addObject:item];
     [self addSubview:item];
     [item release];
 }
@@ -181,7 +218,9 @@
 
 - (void)releaseObjects
 {
-    [_items release], _items = nil;
+    [_menuItems release], _menuItems = nil;
+    [_titleButtonNames release], _titleButtonNames = nil;
+    [_titleBar release], _titleBar = nil;
 }
 
 - (void)dealloc

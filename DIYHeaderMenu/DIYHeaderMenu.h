@@ -26,11 +26,23 @@
 
 @property (assign) NSObject<DIYHeaderMenuDelegate> *delegate;
 
-@property (nonatomic, retain) NSMutableArray *items;
-@property (nonatomic, assign) UIWindow *overlayWindow;
+// Menu Item management
+@property (nonatomic, retain) NSMutableArray *menuItems;
+@property (nonatomic, retain) NSMutableArray *titleButtonNames;
+
+// State
 @property (nonatomic, assign) BOOL isActivated;
 @property (nonatomic, assign) DIYHeaderItem *currentItem;
 
+// Title bar
+@property (nonatomic, retain) DIYHeaderItem *titleBar;
+
+// Internal (should be private)
+@property (nonatomic, assign) UIWindow *overlayWindow;
+@property (nonatomic, assign) UIView *blockingView;
+
++ (void)setTitle:(NSString *)title withDismissIcon:(UIImage *)dismissImage withColor:(UIColor *)color;
++ (void)addTitleButton:(NSString *)name withIcon:(UIImage *)image;
 + (void)addMenuItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color;
 
 + (void)show;
