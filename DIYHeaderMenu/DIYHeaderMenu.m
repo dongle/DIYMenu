@@ -90,12 +90,17 @@
     if(!self->_overlayWindow) {
         _overlayWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         self->_overlayWindow.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        self->_overlayWindow.backgroundColor = [UIColor blackColor];
-        self->_overlayWindow.alpha = 0.0f;
+        self->_overlayWindow.backgroundColor = [UIColor clearColor];
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedBackground)];
         [self->_overlayWindow addGestureRecognizer:tap];
         [tap release];
+        
+        _blockingView = [[[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds] autorelease];
+        self.blockingView.backgroundColor = [UIColor blackColor];
+        self.blockingView.alpha = 0.0f;
+        
+        [self->_overlayWindow addSubview:self.blockingView];
     }
     return self->_overlayWindow;
 }
@@ -113,7 +118,7 @@
         [self.overlayWindow makeKeyAndVisible];
         
         [UIView animateWithDuration:0.2f animations:^{
-            self.overlayWindow.alpha = 0.75f;
+            self.blockingView.alpha = 0.75f;
         }];
         
         // slide in menu
