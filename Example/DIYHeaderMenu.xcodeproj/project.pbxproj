@@ -18,6 +18,8 @@
 		DE02A61A15D9D9450088E687 /* DIYViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE02A61815D9D9450088E687 /* DIYViewController.m */; };
 		DE02A61B15D9D9450088E687 /* DIYViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE02A61915D9D9450088E687 /* DIYViewController.xib */; };
 		DE330C5315DB1D93002625D8 /* testIcon1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE330C5215DB1D93002625D8 /* testIcon1@2x.png */; };
+		DE330C5E15DB2C7F002625D8 /* UIView+Noise.m in Sources */ = {isa = PBXBuildFile; fileRef = DE330C5D15DB2A62002625D8 /* UIView+Noise.m */; };
+		DE330C6015DB2CA2002625D8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE330C5F15DB2CA2002625D8 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +43,7 @@
 		DE330C5215DB1D93002625D8 /* testIcon1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "testIcon1@2x.png"; sourceTree = "<group>"; };
 		DE330C5C15DB2A62002625D8 /* UIView+Noise.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Noise.h"; sourceTree = "<group>"; };
 		DE330C5D15DB2A62002625D8 /* UIView+Noise.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+Noise.m"; sourceTree = "<group>"; };
+		DE330C5F15DB2CA2002625D8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		DE9CED3E15DAC4840051496B /* DIYHeaderOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DIYHeaderOptions.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -49,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE330C6015DB2CA2002625D8 /* QuartzCore.framework in Frameworks */,
 				DE02A5F115D99FAB0088E687 /* UIKit.framework in Frameworks */,
 				DE02A5F315D99FAB0088E687 /* Foundation.framework in Frameworks */,
 				DE02A5F515D99FAB0088E687 /* CoreGraphics.framework in Frameworks */,
@@ -79,6 +83,7 @@
 		DE02A5EF15D99FAB0088E687 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DE330C5F15DB2CA2002625D8 /* QuartzCore.framework */,
 				DE02A5F015D99FAB0088E687 /* UIKit.framework */,
 				DE02A5F215D99FAB0088E687 /* Foundation.framework */,
 				DE02A5F415D99FAB0088E687 /* CoreGraphics.framework */,
@@ -194,6 +199,7 @@
 			files = (
 				DE02A5FD15D99FAB0088E687 /* main.m in Sources */,
 				DE02A60115D99FAB0088E687 /* DIYAppDelegate.m in Sources */,
+				DE330C5E15DB2C7F002625D8 /* UIView+Noise.m in Sources */,
 				DE02A61315D9AA950088E687 /* DIYHeaderMenu.m in Sources */,
 				DE02A61615D9ABA40088E687 /* DIYHeaderItem.m in Sources */,
 				DE02A61A15D9D9450088E687 /* DIYViewController.m in Sources */,

@@ -9,6 +9,8 @@
 #import "DIYHeaderItem.h"
 #import "DIYHeaderOptions.h"
 
+#import "UIView+Noise.h"
+
 @interface DIYHeaderItem ()
 
 @end
@@ -36,6 +38,7 @@
     [self addSubview:self.icon];
     
     self.backgroundColor = color;
+    [self applyNoise];
 }
 
 #pragma mark - Dealloc

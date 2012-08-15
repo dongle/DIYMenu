@@ -28,7 +28,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        //
+        _items = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -167,6 +167,7 @@
     float statusBarPadding = application.statusBarHidden ? 0 : application.statusBarFrame.size.height;
     
     int itemCount = [self.items count];
+    NSLog(@"Items: %i", itemCount);
     CGRect itemFrame = CGRectMake(0, statusBarPadding + itemCount*ITEMHEIGHT, self.frame.size.width, ITEMHEIGHT);
     DIYHeaderItem *item = [[DIYHeaderItem alloc] initWithFrame:itemFrame];
     [item setName:name withIcon:image withColor:color];
