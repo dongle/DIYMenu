@@ -16,7 +16,6 @@
 
 @implementation DIYHeaderMenu
 
-
 @synthesize menuItems = _menuItems;
 @synthesize titleButtonNames = _titleButtonNames;
 
@@ -67,7 +66,7 @@
     return [DIYHeaderMenu sharedView].isActivated;
 }
 
-+ (void)setDelegate:(NSObject<DIYHeaderMenuDelegate> *)delegate
++ (void)setDelegate:(NSObject<DIYMenuDelegate> *)delegate
 {
     [DIYHeaderMenu sharedView].delegate = delegate;
 }
@@ -79,7 +78,7 @@
 
 + (void)addTitleButton:(NSString *)name withIcon:(UIImage *)image
 {
-    
+    //
 }
 
 + (void)addMenuItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color
@@ -97,13 +96,13 @@
         self->_overlayWindow.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self->_overlayWindow.backgroundColor = [UIColor clearColor];
         
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedBackground)];
-        [self->_overlayWindow addGestureRecognizer:tap];
-        [tap release];
-        
         _blockingView = [[[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds] autorelease];
         self.blockingView.backgroundColor = [UIColor blackColor];
         self.blockingView.alpha = 0.0f;
+
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedBackground)];
+        [self.blockingView addGestureRecognizer:tap];
+        [tap release];
         
         [self->_overlayWindow addSubview:self.blockingView];
     }
@@ -178,9 +177,10 @@
     }
 }
 
-- (void)tappedAction:(UIGestureRecognizer *)gesture
+- (void)diyMenuAction:(NSString *)action
 {
-    
+    [self.delegate menuItemSelected:action];
+    [self dismissMenu];
 }
 
 #pragma mark - Item management
@@ -214,10 +214,7 @@
     CGRect itemFrame = CGRectMake(0, padding + itemCount*ITEMHEIGHT, self.frame.size.width, ITEMHEIGHT);
     DIYHeaderItem *item = [[DIYHeaderItem alloc] initWithFrame:itemFrame];
     [item setName:name withIcon:image withColor:color];
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedAction:)];
-    [item addGestureRecognizer:tap];
-    [tap release];
+    item.delegate = self;
     
     [self.menuItems addObject:item];
     [self addSubview:item];

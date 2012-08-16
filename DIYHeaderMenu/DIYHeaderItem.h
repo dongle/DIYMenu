@@ -8,7 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+#import "DIYHeaderMenu.h"
+
 @interface DIYHeaderItem : UIView
+
+@property (nonatomic, assign) NSObject<DIYMenuItemDelegate> *delegate;
 
 @property (nonatomic, retain) UILabel *name;
 @property (nonatomic, retain) UIImageView *icon;

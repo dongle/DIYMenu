@@ -12,7 +12,7 @@
 
 @class DIYHeaderItem;
 
-@protocol DIYHeaderMenuDelegate <NSObject>
+@protocol DIYMenuDelegate <NSObject>
 @required
 - (void)menuItemSelected:(NSString *)action;
 @optional
@@ -20,11 +20,13 @@
 - (void)menuCancelled;
 @end
 
-@interface DIYHeaderMenu : UIView {
+@protocol DIYMenuItemDelegate <NSObject>
+- (void)diyMenuAction:(NSString *)action;
+@end
+
+@interface DIYHeaderMenu : UIView <DIYMenuItemDelegate> {
 
 }
-
-@property (assign) NSObject<DIYHeaderMenuDelegate> *delegate;
 
 // Menu Item management
 @property (nonatomic, retain) NSMutableArray *menuItems;
@@ -38,10 +40,11 @@
 @property (nonatomic, retain) DIYHeaderItem *titleBar;
 
 // Internal (should be private)
+@property (assign) NSObject<DIYMenuDelegate> *delegate;
 @property (nonatomic, assign) UIWindow *overlayWindow;
 @property (nonatomic, assign) UIView *blockingView;
 
-+ (void)setDelegate:(NSObject<DIYHeaderMenuDelegate> *)delegate;
++ (void)setDelegate:(NSObject<DIYMenuDelegate> *)delegate;
 
 + (void)setTitle:(NSString *)title withDismissIcon:(UIImage *)dismissImage withColor:(UIColor *)color;
 + (void)addTitleButton:(NSString *)name withIcon:(UIImage *)image;
