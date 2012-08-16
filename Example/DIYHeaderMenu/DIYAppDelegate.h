@@ -10,7 +10,7 @@
 
 #import "DIYHeaderMenu.h"
 
-@interface DIYAppDelegate : UIResponder <UIApplicationDelegate, DIYHeaderMenuDelegate>
+@interface DIYAppDelegate : UIResponder <UIApplicationDelegate, DIYMenuDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
