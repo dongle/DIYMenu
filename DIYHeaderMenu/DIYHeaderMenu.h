@@ -30,7 +30,7 @@
 
 // Menu Item management
 @property (nonatomic, retain) NSMutableArray *menuItems;
-@property (nonatomic, retain) NSMutableArray *titleButtonNames;
+@property (nonatomic, retain) NSMutableArray *titleButtons;
 
 // State
 @property (nonatomic, assign) BOOL isActivated;

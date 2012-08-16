@@ -1,28 +1,20 @@
 //
-//  DIYHeaderItem.m
+//  DIYMenuButton.m
 //  DIYHeaderMenu
 //
-//  Created by Jonathan Beilin on 8/13/12.
+//  Created by Jonathan Beilin on 8/16/12.
 //  Copyright (c) 2012 DIY. All rights reserved.
 //
 
-#import "DIYHeaderItem.h"
-#import "DIYHeaderOptions.h"
+#import "DIYMenuButton.h"
 
-#import "UIView+Noise.h"
-
-@interface DIYHeaderItem ()
-
-@end
-
-@implementation DIYHeaderItem
+@implementation DIYMenuButton
 
 @synthesize delegate = _delegate;
 @synthesize name = _name;
-@synthesize icon = _icon;
 @synthesize isSelected = _isSelected;
 
-#pragma mark - Init & Setup
+#pragma mark - Init
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -31,24 +23,6 @@
         _delegate = nil;
     }
     return self;
-}
-
-- (void)setName:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color
-{    
-    CGRect labelFrame = CGRectMake(2*ICONPADDING + ICONSIZE, ICONPADDING, self.frame.size.width, ICONSIZE);
-    _name = [[UILabel alloc] initWithFrame:labelFrame];
-    self.name.backgroundColor = [UIColor clearColor];
-    self.name.textColor = [UIColor whiteColor];
-    self.name.font = [UIFont fontWithName:FONT_FAMILY size:FONT_SIZE];
-    self.name.text = name;
-    [self addSubview:self.name];
-    
-    _icon = [[UIImageView alloc] initWithImage:image];
-    self.icon.frame = CGRectMake(ICONPADDING, ICONPADDING, ICONSIZE, ICONSIZE);
-    [self addSubview:self.icon];
-    
-    self.backgroundColor = color;
-    [self applyNoise];
 }
 
 #pragma mark - Touching
@@ -83,7 +57,7 @@
     // Call delegate if touch ended in view
     CGPoint location = [[touches anyObject] locationInView:self];
     if (CGRectContainsPoint(self.bounds, location)) {
-        [self.delegate diyMenuAction:self.name.text];
+        [self.delegate diyMenuAction:self.name];
     }
 }
 
@@ -104,8 +78,7 @@
 - (void)releaseObjects
 {
     _delegate = nil;
-    [_name release]; _name = nil;
-    [_icon release]; _icon = nil;
+    [_name release], _name = nil;
 }
 
 - (void)dealloc

@@ -7,8 +7,10 @@
 //
 
 #import "DIYHeaderMenu.h"
-#import "DIYHeaderItem.h"
 #import "DIYHeaderOptions.h"
+
+#import "DIYHeaderItem.h"
+#import "DIYMenuButton.h"
 
 @interface DIYHeaderMenu ()
 
@@ -17,7 +19,7 @@
 @implementation DIYHeaderMenu
 
 @synthesize menuItems = _menuItems;
-@synthesize titleButtonNames = _titleButtonNames;
+@synthesize titleButtons = _titleButtons;
 
 @synthesize isActivated = _isActivated;
 @synthesize currentItem = _currentItem;
@@ -34,7 +36,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         _menuItems = [[NSMutableArray alloc] init];
+        _titleButtons = [[NSMutableArray alloc] init];
         _titleBar = nil;
+        self.exclusiveTouch = false;
     }
     return self;
 }
@@ -78,7 +82,7 @@
 
 + (void)addTitleButton:(NSString *)name withIcon:(UIImage *)image
 {
-    //
+    [[DIYHeaderMenu sharedView] addTitleButton:name withIcon:image];
 }
 
 + (void)addMenuItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color
@@ -183,6 +187,17 @@
     [self dismissMenu];
 }
 
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
+{
+    BOOL absorbPoint = false;
+    for (UIView *view in self.subviews) {
+        if (!view.hidden && [view pointInside:[self convertPoint:point toView:view] withEvent:event]) {
+            absorbPoint = true;
+        }
+    }
+    return absorbPoint;
+}
+
 #pragma mark - Item management
 
 - (void)setTitle:(NSString *)title withDismissIcon:(UIImage *)dismissImage withColor:(UIColor *)color
@@ -221,12 +236,25 @@
     [item release];
 }
 
+- (void)addTitleButton:(NSString *)name withIcon:(UIImage *)image
+{
+    int buttonCount = [self.titleButtons count] + 1;
+    
+    DIYMenuButton *button = [[DIYMenuButton alloc] initWithImage:image];
+    button.name = name;
+    button.frame = CGRectMake(self.titleBar.frame.size.width - ICONPADDING - (buttonCount * (ICONPADDING + ICONSIZE)), ICONPADDING, ICONSIZE, ICONSIZE);
+    
+    [self.titleButtons addObject:button];
+    [self.titleBar addSubview:button];
+    [button release];
+}
+
 #pragma mark - Dealloc
 
 - (void)releaseObjects
 {
     [_menuItems release], _menuItems = nil;
-    [_titleButtonNames release], _titleButtonNames = nil;
+    [_titleButtons release], _titleButtons = nil;
     [_titleBar release], _titleBar = nil;
 }
 
