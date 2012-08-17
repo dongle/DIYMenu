@@ -9,12 +9,17 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
+@interface NoiseLayer : CALayer
++ (UIImage *)noiseTileImage;
++ (void)drawPixelInContext:(CGContextRef)context point:(CGPoint)point width:(CGFloat)width opacity:(CGFloat)opacity whiteLevel:(CGFloat)whiteLevel;
+@end
+
 @interface UIView (Noise)
 
 // Can be used directly on UIView
-- (void)applyNoise;
-- (void)applyNoiseWithOpacity:(CGFloat)opacity atLayerIndex:(NSUInteger)layerIndex;
-- (void)applyNoiseWithOpacity:(CGFloat)opacity;
+- (NoiseLayer *)applyNoise;
+- (NoiseLayer *)applyNoiseWithOpacity:(CGFloat)opacity atLayerIndex:(NSUInteger)layerIndex;
+- (NoiseLayer *)applyNoiseWithOpacity:(CGFloat)opacity;
 
 // Can be invoked from a drawRect() method
 - (void)drawCGNoise;

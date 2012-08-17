@@ -22,11 +22,6 @@
 
 #pragma Mark - Noise Layer
 
-@interface NoiseLayer : CALayer
-+ (UIImage *)noiseTileImage;
-+ (void)drawPixelInContext:(CGContextRef)context point:(CGPoint)point width:(CGFloat)width opacity:(CGFloat)opacity whiteLevel:(CGFloat)whiteLevel;
-@end
-
 @implementation NoiseLayer
 
 static UIImage * JMNoiseImage;
@@ -103,23 +98,25 @@ static UIImage * JMNoiseImage;
 
 @implementation UIView (Noise)
 
-- (void)applyNoise;
+- (NoiseLayer *)applyNoise;
 {
-    [self applyNoiseWithOpacity:kNoiseDefaultOpacity];
+    return [self applyNoiseWithOpacity:kNoiseDefaultOpacity];
 }
 
-- (void)applyNoiseWithOpacity:(CGFloat)opacity atLayerIndex:(NSUInteger) layerIndex;
+- (NoiseLayer *)applyNoiseWithOpacity:(CGFloat)opacity atLayerIndex:(NSUInteger) layerIndex;
 {
     NoiseLayer * noiseLayer = [[[NoiseLayer alloc] init] autorelease];
     [noiseLayer setFrame:self.bounds];
     noiseLayer.masksToBounds = YES;
     noiseLayer.opacity = opacity;
     [self.layer insertSublayer:noiseLayer atIndex:layerIndex];
+    
+    return noiseLayer;
 }
 
-- (void)applyNoiseWithOpacity:(CGFloat)opacity;
+- (NoiseLayer *)applyNoiseWithOpacity:(CGFloat)opacity;
 {
-    [self applyNoiseWithOpacity:opacity atLayerIndex:0];
+    return [self applyNoiseWithOpacity:opacity atLayerIndex:0];
 }
 
 - (void)drawCGNoise;
