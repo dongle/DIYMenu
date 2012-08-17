@@ -14,17 +14,6 @@
 @synthesize name = _name;
 @synthesize isSelected = _isSelected;
 
-#pragma mark - Init
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        _delegate = nil;
-    }
-    return self;
-}
-
 #pragma mark - Touching
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
