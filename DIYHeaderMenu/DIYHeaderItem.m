@@ -18,6 +18,8 @@
 @implementation DIYHeaderItem
 
 @synthesize delegate = _delegate;
+@synthesize noise = _noise;
+
 @synthesize name = _name;
 @synthesize icon = _icon;
 @synthesize isSelected = _isSelected;
@@ -29,6 +31,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         _delegate = nil;
+        self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        self.autoresizesSubviews = true;
+        _noise = nil;
     }
     return self;
 }
@@ -48,7 +53,17 @@
     [self addSubview:self.icon];
     
     self.backgroundColor = color;
-    [self applyNoise];
+    [self refreshNoise];
+}
+
+#pragma mark - Drawing
+
+- (void)refreshNoise
+{
+    if (self.noise != nil) {
+        [self.noise removeFromSuperlayer];
+    }
+    self.noise = [self applyNoise];
 }
 
 #pragma mark - Touching

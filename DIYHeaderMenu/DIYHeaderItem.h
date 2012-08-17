@@ -10,14 +10,21 @@
 
 #import "DIYHeaderMenu.h"
 
+@class NoiseLayer;
+
 @interface DIYHeaderItem : UIView
 
+// Internals
 @property (nonatomic, assign) NSObject<DIYMenuItemDelegate> *delegate;
+@property (nonatomic, assign) NoiseLayer *noise;
 
+// Fun stuff
 @property (nonatomic, retain) UILabel *name;
 @property (nonatomic, retain) UIImageView *icon;
 @property (nonatomic, assign) BOOL isSelected;
 
 - (void)setName:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color;
+
+- (void)refreshNoise;
 
 @end
