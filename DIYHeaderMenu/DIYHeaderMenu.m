@@ -38,7 +38,6 @@
         _menuItems = [[NSMutableArray alloc] init];
         _titleButtons = [[NSMutableArray alloc] init];
         _titleBar = nil;
-        self.exclusiveTouch = false;
     }
     return self;
 }
@@ -103,7 +102,7 @@
         _blockingView = [[[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds] autorelease];
         self.blockingView.backgroundColor = [UIColor blackColor];
         self.blockingView.alpha = 0.0f;
-
+        
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedBackground)];
         [self.blockingView addGestureRecognizer:tap];
         [tap release];
@@ -189,13 +188,13 @@
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
-    BOOL absorbPoint = false;
+    BOOL passTouch = false;
     for (UIView *view in self.subviews) {
         if (!view.hidden && [view pointInside:[self convertPoint:point toView:view] withEvent:event]) {
-            absorbPoint = true;
+            passTouch = true;
         }
     }
-    return absorbPoint;
+    return passTouch;
 }
 
 #pragma mark - Item management
@@ -210,6 +209,7 @@
         [self.titleBar setName:title withIcon:dismissImage withColor:color];
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedBackground)];
+        self.titleBar.icon.userInteractionEnabled = true;
         [self.titleBar.icon addGestureRecognizer:tap];
         [tap release];
         
@@ -241,6 +241,8 @@
     int buttonCount = [self.titleButtons count] + 1;
     
     DIYMenuButton *button = [[DIYMenuButton alloc] initWithImage:image];
+    button.userInteractionEnabled = true;
+    button.delegate = self;
     button.name = name;
     button.frame = CGRectMake(self.titleBar.frame.size.width - ICONPADDING - (buttonCount * (ICONPADDING + ICONSIZE)), ICONPADDING, ICONSIZE, ICONSIZE);
     
