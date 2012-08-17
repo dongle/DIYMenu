@@ -14,6 +14,18 @@
 @synthesize name = _name;
 @synthesize isSelected = _isSelected;
 
+#pragma mark - Init
+
+- (id)initWithImage:(UIImage *)image
+{
+    self = [super initWithImage:image];
+    
+    if (self) {
+        self.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    }
+    return self;
+}
+
 #pragma mark - Touching
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

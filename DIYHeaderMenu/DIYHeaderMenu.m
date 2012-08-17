@@ -12,6 +12,8 @@
 #import "DIYHeaderItem.h"
 #import "DIYMenuButton.h"
 
+#define DegreesToRadians(x) ((x) * M_PI / 180.0)
+
 @interface DIYHeaderMenu ()
 
 @end
@@ -38,6 +40,8 @@
         _menuItems = [[NSMutableArray alloc] init];
         _titleButtons = [[NSMutableArray alloc] init];
         _titleBar = nil;
+        self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        self.autoresizesSubviews = true;
     }
     return self;
 }
@@ -98,10 +102,12 @@
         _overlayWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         self->_overlayWindow.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self->_overlayWindow.backgroundColor = [UIColor clearColor];
+        self->_overlayWindow.autoresizesSubviews = true;
         
         _blockingView = [[[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds] autorelease];
         self.blockingView.backgroundColor = [UIColor blackColor];
         self.blockingView.alpha = 0.0f;
+        self.blockingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedBackground)];
         [self.blockingView addGestureRecognizer:tap];
@@ -116,12 +122,25 @@
 
 - (void)showMenu
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{ 
         // Add self to overlayWindow then make the window key for MAXIMUM BLOCKAGE
         if (!self.superview) {
             [self.overlayWindow addSubview:self];
         }
         
+        // Ensure orientation is proper
+        if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+            self.overlayWindow.transform = CGAffineTransformMakeRotation(DegreesToRadians(90));
+            self.overlayWindow.frame = CGRectMake(0, 0, 320, 480);
+            
+            // Refresh the noise on the header items (so the noise covers the entire width
+            [self.titleBar refreshNoise];
+            for (DIYHeaderItem *item in self.menuItems) {
+                [item refreshNoise];
+            }
+        }
+
+        // bring the overlay window container thing to the front
         [self.overlayWindow makeKeyAndVisible];
         
         [UIView animateWithDuration:0.2f animations:^{
@@ -202,7 +221,7 @@
 - (void)setTitle:(NSString *)title withDismissIcon:(UIImage *)dismissImage withColor:(UIColor *)color
 {
     if (_titleBar == nil) {
-        UIApplication *application = [UIApplication sharedApplication];
+        UIApplication *application = [UIApplication sharedApplication];        
         float padding = application.statusBarHidden ? 0 : application.statusBarFrame.size.height;
         _titleBar = [[DIYHeaderItem alloc] initWithFrame:CGRectMake(0, padding, self.frame.size.width, ITEMHEIGHT)];
         
