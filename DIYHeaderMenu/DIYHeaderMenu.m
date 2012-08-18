@@ -99,6 +99,15 @@
 - (UIWindow *)overlayWindow
 {
     if(!self->_overlayWindow) {
+        CGRect overlayFrame;
+        if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+            CGRect bounds = [UIScreen mainScreen].bounds;
+            overlayFrame = CGRectMake(0, 0, bounds.size.width, bounds.size.height);
+        }
+        else {
+            overlayFrame = [UIScreen mainScreen].bounds;
+        }
+        
         _overlayWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         self->_overlayWindow.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self->_overlayWindow.backgroundColor = [UIColor clearColor];
@@ -122,7 +131,7 @@
 
 - (void)showMenu
 {
-    dispatch_async(dispatch_get_main_queue(), ^{ 
+    dispatch_async(dispatch_get_main_queue(), ^{
         // Add self to overlayWindow then make the window key for MAXIMUM BLOCKAGE
         if (!self.superview) {
             [self.overlayWindow addSubview:self];
@@ -131,7 +140,9 @@
         // Ensure orientation is proper
         if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
             self.overlayWindow.transform = CGAffineTransformMakeRotation(DegreesToRadians(90));
-            self.overlayWindow.frame = CGRectMake(0, 0, 320, 480);
+            self.overlayWindow.frame = CGRectMake(0, 0, self.overlayWindow.frame.size.height, self.overlayWindow.frame.size.width);
+            
+            self.frame = CGRectMake(0, 0, self.overlayWindow.frame.size.height, self.overlayWindow.frame.size.width);
             
             // Refresh the noise on the header items (so the noise covers the entire width
             [self.titleBar refreshNoise];
@@ -139,13 +150,8 @@
                 [item refreshNoise];
             }
         }
-
-        /*
-        NSLog(@"overlay: %@", NSStringFromCGRect(self.overlayWindow.frame));
-        NSLog(@"self: %@", NSStringFromCGRect(self.frame));
-         */
         
-        // bring the overlay window container thing to the front
+        // Bring the overlay window container thing to the front
         [self.overlayWindow makeKeyAndVisible];
         
         [UIView animateWithDuration:0.2f animations:^{
@@ -171,6 +177,7 @@
         [UIView animateWithDuration:0.2f animations:^{
             self.overlayWindow.alpha = 0.0f;
         } completion:^(BOOL finished) {
+            [self removeFromSuperview];
             [_overlayWindow release], _overlayWindow = nil;
             
             [[UIApplication sharedApplication].windows enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(UIWindow *window, NSUInteger idx, BOOL *stop) {
