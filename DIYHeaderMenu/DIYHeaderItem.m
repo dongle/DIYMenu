@@ -23,6 +23,7 @@
 @synthesize name = _name;
 @synthesize icon = _icon;
 @synthesize isSelected = _isSelected;
+@synthesize isSelectable = _isSelectable;
 
 #pragma mark - Init & Setup
 
@@ -34,6 +35,15 @@
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.autoresizesSubviews = true;
         _noise = nil;
+        
+        _shadingView = [[UIView alloc] initWithFrame:self.bounds];
+        self.shadingView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        self.shadingView.backgroundColor = [UIColor blackColor];
+        self.shadingView.userInteractionEnabled = false;
+        self.shadingView.alpha = 0.0f;
+        [self addSubview:self.shadingView];
+        
+        _isSelectable = true;
     }
     return self;
 }
@@ -51,7 +61,7 @@
     _icon = [[UIImageView alloc] initWithImage:image];
     self.icon.frame = CGRectMake(ICONPADDING, ICONPADDING, ICONSIZE, ICONSIZE);
     [self addSubview:self.icon];
-    
+        
     self.backgroundColor = color;
     [self refreshNoise];
 }
@@ -66,34 +76,71 @@
     self.noise = [self applyNoise];
 }
 
+- (void)depictSelected
+{
+    if (!self.isSelected) {
+//        self.center = CGPointMake(self.center.x + 2.0f, self.center.y + 2.0f);
+        self.shadingView.alpha = 0.5f;
+        [self bringSubviewToFront:self.shadingView];
+        self.isSelected = true;
+    }
+}
+
+- (void)depictUnselected
+{
+    if (self.isSelected) {
+//        self.center = CGPointMake(self.center.x - 2.0f, self.center.y - 2.0f);
+        self.shadingView.alpha = 0.0f;
+        self.isSelected = false;
+    }
+}
+
 #pragma mark - Touching
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesBegan:touches withEvent:event];
     
-    // Make look selected
+    if (!self.isSelectable)
+        return;
+    
+    [self depictSelected];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesMoved:touches withEvent:event];
-    
-    // Make look unselected if move out?
+
+    if (!self.isSelectable)
+        return;
+
+    CGPoint location = [[touches anyObject] locationInView:self];
+    if (CGRectContainsPoint(self.bounds, location)) {
+        [self depictSelected];
+    }
+    else {
+        [self depictUnselected];
+    }
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesCancelled:touches withEvent:event];
     
-    // Make look unselected
+    if (!self.isSelectable)
+        return;
+    
+    [self depictUnselected];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesEnded:touches withEvent:event];
     
-    // Make look unselected
+    if (!self.isSelectable)
+        return;
+    
+    [self depictUnselected];
     
     // Call delegate if touch ended in view
     CGPoint location = [[touches anyObject] locationInView:self];
@@ -102,25 +149,14 @@
     }
 }
 
-- (void)depictSelected
-{
-    // transform a few pixels x,y
-    // add shading view
-}
-
-- (void)depictUnselected
-{
-    // return to normal place
-    // remove shading view
-}
-
 #pragma mark - Dealloc
 
 - (void)releaseObjects
 {
     _delegate = nil;
-    [_name release]; _name = nil;
-    [_icon release]; _icon = nil;
+    [_name release], _name = nil;
+    [_icon release], _icon = nil;
+    [_shadingView release], _shadingView = nil;
 }
 
 - (void)dealloc

@@ -17,11 +17,13 @@
 // Internals
 @property (nonatomic, assign) NSObject<DIYMenuItemDelegate> *delegate;
 @property (nonatomic, assign) NoiseLayer *noise;
+@property (nonatomic, assign) BOOL isSelected;
+@property (nonatomic, assign) BOOL isSelectable;
+@property (nonatomic, retain) UIView *shadingView;
 
 // Fun stuff
 @property (nonatomic, retain) UILabel *name;
 @property (nonatomic, retain) UIImageView *icon;
-@property (nonatomic, assign) BOOL isSelected;
 
 - (void)setName:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color;
 

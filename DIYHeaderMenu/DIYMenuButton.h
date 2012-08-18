@@ -12,8 +12,11 @@
 
 @interface DIYMenuButton : UIImageView
 
+// Internals
 @property (nonatomic, assign) NSObject<DIYMenuItemDelegate> *delegate;
-@property (nonatomic, retain) NSString *name;
 @property (nonatomic, assign) BOOL isSelected;
+
+// Public properties
+@property (nonatomic, retain) NSString *name;
 
 @end

@@ -140,6 +140,11 @@
             }
         }
 
+        /*
+        NSLog(@"overlay: %@", NSStringFromCGRect(self.overlayWindow.frame));
+        NSLog(@"self: %@", NSStringFromCGRect(self.frame));
+         */
+        
         // bring the overlay window container thing to the front
         [self.overlayWindow makeKeyAndVisible];
         
@@ -226,6 +231,7 @@
         _titleBar = [[DIYHeaderItem alloc] initWithFrame:CGRectMake(0, padding, self.frame.size.width, ITEMHEIGHT)];
         
         [self.titleBar setName:title withIcon:dismissImage withColor:color];
+        self.titleBar.isSelectable = false;
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedBackground)];
         self.titleBar.icon.userInteractionEnabled = true;
