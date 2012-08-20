@@ -26,7 +26,7 @@
 @property (nonatomic, retain) UILabel *name;
 @property (nonatomic, retain) UIImageView *icon;
 
-- (void)setName:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color;
+- (void)setName:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color withFont:(UIFont *)font;
 
 - (void)refreshNoise;
 

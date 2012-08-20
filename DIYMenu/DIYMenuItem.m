@@ -50,13 +50,13 @@
     return self;
 }
 
-- (void)setName:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color
+- (void)setName:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color withFont:(UIFont *)font
 {    
     CGRect labelFrame = CGRectMake(2*ICONPADDING + ICONSIZE, ICONPADDING, self.frame.size.width, ICONSIZE);
     _name = [[UILabel alloc] initWithFrame:labelFrame];
     self.name.backgroundColor = [UIColor clearColor];
     self.name.textColor = [UIColor whiteColor];
-    self.name.font = [UIFont fontWithName:FONT_FAMILY size:FONT_SIZE];
+    self.name.font = font;
     self.name.text = name;
     [self addSubview:self.name];
     

@@ -46,9 +46,9 @@
 
 + (void)setDelegate:(NSObject<DIYMenuDelegate> *)delegate;
 
-+ (void)setTitle:(NSString *)title withDismissIcon:(UIImage *)dismissImage withColor:(UIColor *)color;
++ (void)setTitle:(NSString *)title withDismissIcon:(UIImage *)dismissImage withColor:(UIColor *)color withFont:(UIFont *)font;
 + (void)addTitleButton:(NSString *)name withIcon:(UIImage *)image;
-+ (void)addMenuItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color;
++ (void)addMenuItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color withFont:(UIFont *)font;
 
 + (void)show;
 + (void)dismiss;

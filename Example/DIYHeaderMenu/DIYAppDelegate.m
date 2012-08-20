@@ -8,6 +8,7 @@
 
 #import "DIYAppDelegate.h"
 #import "DIYViewController.h"
+#import "DIYMenuOptions.h"
 
 @implementation DIYAppDelegate
 
@@ -22,6 +23,8 @@
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     self.window.backgroundColor = [UIColor whiteColor];
     
+    UIFont *font = [UIFont fontWithName:FONT_FAMILY size:FONT_SIZE];
+    
     //
     // Set up the menu
     //
@@ -29,16 +32,16 @@
     [DIYMenu setDelegate:self];
     
     // Set up the titlebar
-    [DIYMenu setTitle:@"Menu" withDismissIcon:[UIImage imageNamed:@"dismissIcon@2x.png"] withColor:[UIColor colorWithRed:0.34f green:0.47f blue:0.78f alpha:1.0f]];
+    [DIYMenu setTitle:@"Menu" withDismissIcon:[UIImage imageNamed:@"dismissIcon@2x.png"] withColor:[UIColor colorWithRed:0.34f green:0.47f blue:0.78f alpha:1.0f] withFont:font];
     
     // Add buttons to the titlebar
     [DIYMenu addTitleButton:@"Capture" withIcon:[UIImage imageNamed:@"cameraIcon@2x.png"]];
     
     // Add menu items
-    [DIYMenu addMenuItem:@"Portfolio" withIcon:[UIImage imageNamed:@"portfolioIcon@2x.png"] withColor:[UIColor colorWithRed:0.18f green:0.76f blue:0.93f alpha:1.0f]];
-    [DIYMenu addMenuItem:@"Skills" withIcon:[UIImage imageNamed:@"skillsIcon@2x.png"] withColor:[UIColor colorWithRed:0.28f green:0.55f blue:0.95f alpha:1.0f]];
-    [DIYMenu addMenuItem:@"Explore" withIcon:[UIImage imageNamed:@"exploreIcon@2x.png"] withColor:[UIColor colorWithRed:0.47f green:0.24f blue:0.93f alpha:1.0f]];
-    [DIYMenu addMenuItem:@"Settings" withIcon:[UIImage imageNamed:@"settingsIcon@2x.png"] withColor:[UIColor colorWithRed:0.57f green:0.0f blue:0.85f alpha:1.0f]];
+    [DIYMenu addMenuItem:@"Portfolio" withIcon:[UIImage imageNamed:@"portfolioIcon@2x.png"] withColor:[UIColor colorWithRed:0.18f green:0.76f blue:0.93f alpha:1.0f] withFont:font];
+    [DIYMenu addMenuItem:@"Skills" withIcon:[UIImage imageNamed:@"skillsIcon@2x.png"] withColor:[UIColor colorWithRed:0.28f green:0.55f blue:0.95f alpha:1.0f] withFont:font];
+    [DIYMenu addMenuItem:@"Explore" withIcon:[UIImage imageNamed:@"exploreIcon@2x.png"] withColor:[UIColor colorWithRed:0.47f green:0.24f blue:0.93f alpha:1.0f] withFont:font];
+    [DIYMenu addMenuItem:@"Settings" withIcon:[UIImage imageNamed:@"settingsIcon@2x.png"] withColor:[UIColor colorWithRed:0.57f green:0.0f blue:0.85f alpha:1.0f] withFont:font];
     
     //
     

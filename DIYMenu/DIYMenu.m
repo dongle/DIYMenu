@@ -80,9 +80,9 @@
     [DIYMenu sharedView].delegate = delegate;
 }
 
-+ (void)setTitle:(NSString *)title withDismissIcon:(UIImage *)dismissImage withColor:(UIColor *)color
++ (void)setTitle:(NSString *)title withDismissIcon:(UIImage *)dismissImage withColor:(UIColor *)color withFont:(UIFont *)font
 {
-    [[DIYMenu sharedView] setTitle:title withDismissIcon:dismissImage withColor:color];
+    [[DIYMenu sharedView] setTitle:title withDismissIcon:dismissImage withColor:color withFont:font];
 }
 
 + (void)addTitleButton:(NSString *)name withIcon:(UIImage *)image
@@ -90,26 +90,16 @@
     [[DIYMenu sharedView] addTitleButton:name withIcon:image];
 }
 
-+ (void)addMenuItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color
++ (void)addMenuItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color withFont:(UIFont *)font
 {
-    [[DIYMenu sharedView] addItem:name withIcon:image withColor:color];
+    [[DIYMenu sharedView] addItem:name withIcon:image withColor:color withFont:font];
 }
-
 
 #pragma mark - Getters
 
 - (UIWindow *)overlayWindow
 {
-    if(!self->_overlayWindow) {
-        CGRect overlayFrame;
-        if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
-            CGRect bounds = [UIScreen mainScreen].bounds;
-            overlayFrame = CGRectMake(0, 0, bounds.size.width, bounds.size.height);
-        }
-        else {
-            overlayFrame = [UIScreen mainScreen].bounds;
-        }
-        
+    if(!self->_overlayWindow) {   
         _overlayWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         self->_overlayWindow.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self->_overlayWindow.backgroundColor = [UIColor clearColor];
@@ -255,14 +245,14 @@
 
 #pragma mark - Item management
 
-- (void)setTitle:(NSString *)title withDismissIcon:(UIImage *)dismissImage withColor:(UIColor *)color
+- (void)setTitle:(NSString *)title withDismissIcon:(UIImage *)dismissImage withColor:(UIColor *)color withFont:(UIFont *)font
 {
     if (_titleBar == nil) {
         UIApplication *application = [UIApplication sharedApplication];        
         float padding = application.statusBarHidden ? 0 : application.statusBarFrame.size.height;
         _titleBar = [[DIYMenuItem alloc] initWithFrame:CGRectMake(0, padding, self.frame.size.width, ITEMHEIGHT)];
         
-        [self.titleBar setName:title withIcon:dismissImage withColor:color];
+        [self.titleBar setName:title withIcon:dismissImage withColor:color withFont:font];
         self.titleBar.isSelectable = false;
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedBackground)];
@@ -274,7 +264,7 @@
     }
 }
 
-- (void)addItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color
+- (void)addItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color withFont:(UIFont *)font
 {
     UIApplication *application = [UIApplication sharedApplication];
     
@@ -285,7 +275,7 @@
     
     CGRect itemFrame = CGRectMake(0, padding + itemCount*ITEMHEIGHT, self.frame.size.width, ITEMHEIGHT);
     DIYMenuItem *item = [[DIYMenuItem alloc] initWithFrame:itemFrame];
-    [item setName:name withIcon:image withColor:color];
+    [item setName:name withIcon:image withColor:color withFont:font];
     item.delegate = self;
     
     [self.menuItems addObject:item];
