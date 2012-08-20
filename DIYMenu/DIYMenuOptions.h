@@ -1,13 +1,13 @@
 //
-//  DIYHeaderOptions.h
-//  DIYHeaderMenu
+//  DIYMenuOptions.h
+//  DIYMenu
 //
 //  Created by Jonathan Beilin on 8/14/12.
 //  Copyright (c) 2012 DIY. All rights reserved.
 //
 
-#ifndef DIYHeaderMenu_DIYHeaderOptions_h
-#define DIYHeaderMenu_DIYHeaderOptions_h
+#ifndef DIYMenu_DIYMenuOptions_h
+#define DIYMenu_DIYMenuOptions_h
 
 #define ITEMHEIGHT 47.0f
 

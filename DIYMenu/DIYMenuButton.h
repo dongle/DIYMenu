@@ -1,6 +1,6 @@
 //
 //  DIYMenuButton.h
-//  DIYHeaderMenu
+//  DIYMenu
 //
 //  Created by Jonathan Beilin on 8/16/12.
 //  Copyright (c) 2012 DIY. All rights reserved.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "DIYHeaderMenu.h"
+#import "DIYMenu.h"
 
 @interface DIYMenuButton : UIImageView
 

@@ -1,6 +1,6 @@
 //
-//  DIYHeaderItem.h
-//  DIYHeaderMenu
+//  DIYMenuItem.h
+//  DIYMenu
 //
 //  Created by Jonathan Beilin on 8/13/12.
 //  Copyright (c) 2012 DIY. All rights reserved.
@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-#import "DIYHeaderMenu.h"
+#import "DIYMenu.h"
 
 @class NoiseLayer;
 
-@interface DIYHeaderItem : UIView
+@interface DIYMenuItem : UIView
 
 // Internals
 @property (nonatomic, assign) NSObject<DIYMenuItemDelegate> *delegate;

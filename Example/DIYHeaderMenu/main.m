@@ -1,6 +1,6 @@
 //
 //  main.m
-//  DIYHeaderMenu
+//  DIYMenu
 //
 //  Created by Jonathan Beilin on 8/13/12.
 //  Copyright (c) 2012 DIY. All rights reserved.

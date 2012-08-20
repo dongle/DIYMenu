@@ -1,6 +1,6 @@
 //
-//  DIYHeaderMenu.h
-//  DIYHeaderMenu
+//  DIYMenu.h
+//  DIYMenu
 //
 //  Created by Jonathan Beilin on 8/13/12.
 //  Copyright (c) 2012 DIY. All rights reserved.
@@ -10,7 +10,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class DIYHeaderItem;
+@class DIYMenuItem;
 
 @protocol DIYMenuDelegate <NSObject>
 @required
@@ -24,7 +24,7 @@
 - (void)diyMenuAction:(NSString *)action;
 @end
 
-@interface DIYHeaderMenu : UIView <DIYMenuItemDelegate> {
+@interface DIYMenu : UIView <DIYMenuItemDelegate> {
 
 }
 
@@ -34,10 +34,10 @@
 
 // State
 @property (nonatomic, assign) BOOL isActivated;
-@property (nonatomic, assign) DIYHeaderItem *currentItem;
+@property (nonatomic, assign) DIYMenuItem *currentItem;
 
 // Title bar
-@property (nonatomic, retain) DIYHeaderItem *titleBar;
+@property (nonatomic, retain) DIYMenuItem *titleBar;
 
 // Internal (should be private)
 @property (assign) NSObject<DIYMenuDelegate> *delegate;

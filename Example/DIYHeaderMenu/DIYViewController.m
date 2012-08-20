@@ -1,13 +1,13 @@
 //
 //  DIYViewController.m
-//  DIYHeaderMenu
+//  DIYMenu
 //
 //  Created by Jonathan Beilin on 8/13/12.
 //  Copyright (c) 2012 DIY. All rights reserved.
 //
 
 #import "DIYViewController.h"
-#import "DIYHeaderMenu.h"
+#import "DIYMenu.h"
 
 @interface DIYViewController ()
 
@@ -32,7 +32,7 @@
 
 - (IBAction)showMenu:(id)sender
 {
-    [DIYHeaderMenu show];
+    [DIYMenu show];
 }
 
 #pragma mark - Rotation

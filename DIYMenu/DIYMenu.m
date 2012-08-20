@@ -1,26 +1,26 @@
 //
-//  DIYHeaderMenu.m
-//  DIYHeaderMenu
+//  DIYMenu.m
+//  DIYMenu
 //
 //  Created by Jonathan Beilin on 8/13/12.
 //  Copyright (c) 2012 DIY. All rights reserved.
 //
 
-#import "DIYHeaderMenu.h"
-#import "DIYHeaderOptions.h"
+#import "DIYMenu.h"
+#import "DIYMenuOptions.h"
 
-#import "DIYHeaderItem.h"
+#import "DIYMenuItem.h"
 #import "DIYMenuButton.h"
 
 #import <QuartzCore/QuartzCore.h>
 
 #define DegreesToRadians(x) ((x) * M_PI / 180.0)
 
-@interface DIYHeaderMenu ()
+@interface DIYMenu ()
 
 @end
 
-@implementation DIYHeaderMenu
+@implementation DIYMenu
 
 @synthesize menuItems = _menuItems;
 @synthesize titleButtons = _titleButtons;
@@ -50,49 +50,49 @@
 
 #pragma mark - Class methods
 
-+ (DIYHeaderMenu *)sharedView
++ (DIYMenu *)sharedView
 {
     static dispatch_once_t once;
-    static DIYHeaderMenu *sharedView;
+    static DIYMenu *sharedView;
     dispatch_once(&once, ^{
-        sharedView = [[DIYHeaderMenu alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        sharedView = [[DIYMenu alloc] initWithFrame:[UIScreen mainScreen].bounds];
     });
     return sharedView;
 }
 
 + (void)show
 {
-    [[DIYHeaderMenu sharedView] showMenu];
+    [[DIYMenu sharedView] showMenu];
 }
 
 + (void)dismiss
 {
-    [[DIYHeaderMenu sharedView] dismissMenu];
+    [[DIYMenu sharedView] dismissMenu];
 }
 
 + (BOOL)isActivated
 {
-    return [DIYHeaderMenu sharedView].isActivated;
+    return [DIYMenu sharedView].isActivated;
 }
 
 + (void)setDelegate:(NSObject<DIYMenuDelegate> *)delegate
 {
-    [DIYHeaderMenu sharedView].delegate = delegate;
+    [DIYMenu sharedView].delegate = delegate;
 }
 
 + (void)setTitle:(NSString *)title withDismissIcon:(UIImage *)dismissImage withColor:(UIColor *)color
 {
-    [[DIYHeaderMenu sharedView] setTitle:title withDismissIcon:dismissImage withColor:color];
+    [[DIYMenu sharedView] setTitle:title withDismissIcon:dismissImage withColor:color];
 }
 
 + (void)addTitleButton:(NSString *)name withIcon:(UIImage *)image
 {
-    [[DIYHeaderMenu sharedView] addTitleButton:name withIcon:image];
+    [[DIYMenu sharedView] addTitleButton:name withIcon:image];
 }
 
 + (void)addMenuItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color
 {
-    [[DIYHeaderMenu sharedView] addItem:name withIcon:image withColor:color];
+    [[DIYMenu sharedView] addItem:name withIcon:image withColor:color];
 }
 
 
@@ -148,7 +148,7 @@
             
             // Refresh the noise on the header items (so the noise covers the entire width
             [self.titleBar refreshNoise];
-            for (DIYHeaderItem *item in self.menuItems) {
+            for (DIYMenuItem *item in self.menuItems) {
                 [item refreshNoise];
             }
         }
@@ -162,14 +162,14 @@
         
         self.titleBar.frame = CGRectMake(self.titleBar.frame.origin.x, (CGFloat) -ITEMHEIGHT, self.titleBar.frame.size.width, self.titleBar.frame.size.height);
         
-        [self.menuItems enumerateObjectsUsingBlock:^(DIYHeaderItem *item, NSUInteger idx, BOOL *stop) {
+        [self.menuItems enumerateObjectsUsingBlock:^(DIYMenuItem *item, NSUInteger idx, BOOL *stop) {
             item.frame = CGRectMake(item.frame.origin.x, (CGFloat) -ITEMHEIGHT * (idx + 2), item.frame.size.width, item.frame.size.height);
         }];
         
         [UIView animateWithDuration:0.6f delay:0.01f options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.titleBar.frame = CGRectMake(self.titleBar.frame.origin.x, self.titleBar.menuPosition.y, self.titleBar.frame.size.width, self.titleBar.frame.size.height);
             
-            for (DIYHeaderItem *item in self.menuItems) {
+            for (DIYMenuItem *item in self.menuItems) {
                 item.frame = CGRectMake(item.frame.origin.x, item.menuPosition.y, item.frame.size.width, item.frame.size.height);
             }
         } completion:^(BOOL finished) {
@@ -199,7 +199,7 @@
         [UIView animateWithDuration:0.4f delay:0.0f options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.titleBar.frame = CGRectMake(self.titleBar.frame.origin.x, (CGFloat) -ITEMHEIGHT, self.titleBar.frame.size.width, self.titleBar.frame.size.height);
             
-            [self.menuItems enumerateObjectsUsingBlock:^(DIYHeaderItem *item, NSUInteger idx, BOOL *stop) {
+            [self.menuItems enumerateObjectsUsingBlock:^(DIYMenuItem *item, NSUInteger idx, BOOL *stop) {
                 item.frame = CGRectMake(item.frame.origin.x, (CGFloat) -ITEMHEIGHT * (idx + 2), item.frame.size.width, item.frame.size.height);
             }];
         } completion:^(BOOL finished) {
@@ -260,7 +260,7 @@
     if (_titleBar == nil) {
         UIApplication *application = [UIApplication sharedApplication];        
         float padding = application.statusBarHidden ? 0 : application.statusBarFrame.size.height;
-        _titleBar = [[DIYHeaderItem alloc] initWithFrame:CGRectMake(0, padding, self.frame.size.width, ITEMHEIGHT)];
+        _titleBar = [[DIYMenuItem alloc] initWithFrame:CGRectMake(0, padding, self.frame.size.width, ITEMHEIGHT)];
         
         [self.titleBar setName:title withIcon:dismissImage withColor:color];
         self.titleBar.isSelectable = false;
@@ -284,7 +284,7 @@
     int itemCount = [self.menuItems count];
     
     CGRect itemFrame = CGRectMake(0, padding + itemCount*ITEMHEIGHT, self.frame.size.width, ITEMHEIGHT);
-    DIYHeaderItem *item = [[DIYHeaderItem alloc] initWithFrame:itemFrame];
+    DIYMenuItem *item = [[DIYMenuItem alloc] initWithFrame:itemFrame];
     [item setName:name withIcon:image withColor:color];
     item.delegate = self;
     

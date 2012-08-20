@@ -1,6 +1,6 @@
 //
 //  DIYAppDelegate.m
-//  DIYHeaderMenu
+//  DIYMenu
 //
 //  Created by Jonathan Beilin on 8/13/12.
 //  Copyright (c) 2012 DIY. All rights reserved.
@@ -26,19 +26,19 @@
     // Set up the menu
     //
     
-    [DIYHeaderMenu setDelegate:self];
+    [DIYMenu setDelegate:self];
     
     // Set up the titlebar
-    [DIYHeaderMenu setTitle:@"Menu" withDismissIcon:[UIImage imageNamed:@"dismissIcon@2x.png"] withColor:[UIColor colorWithRed:0.34f green:0.47f blue:0.78f alpha:1.0f]];
+    [DIYMenu setTitle:@"Menu" withDismissIcon:[UIImage imageNamed:@"dismissIcon@2x.png"] withColor:[UIColor colorWithRed:0.34f green:0.47f blue:0.78f alpha:1.0f]];
     
     // Add buttons to the titlebar
-    [DIYHeaderMenu addTitleButton:@"Capture" withIcon:[UIImage imageNamed:@"cameraIcon@2x.png"]];
+    [DIYMenu addTitleButton:@"Capture" withIcon:[UIImage imageNamed:@"cameraIcon@2x.png"]];
     
     // Add menu items
-    [DIYHeaderMenu addMenuItem:@"Portfolio" withIcon:[UIImage imageNamed:@"portfolioIcon@2x.png"] withColor:[UIColor colorWithRed:0.18f green:0.76f blue:0.93f alpha:1.0f]];
-    [DIYHeaderMenu addMenuItem:@"Skills" withIcon:[UIImage imageNamed:@"skillsIcon@2x.png"] withColor:[UIColor colorWithRed:0.28f green:0.55f blue:0.95f alpha:1.0f]];
-    [DIYHeaderMenu addMenuItem:@"Explore" withIcon:[UIImage imageNamed:@"exploreIcon@2x.png"] withColor:[UIColor colorWithRed:0.47f green:0.24f blue:0.93f alpha:1.0f]];
-    [DIYHeaderMenu addMenuItem:@"Settings" withIcon:[UIImage imageNamed:@"settingsIcon@2x.png"] withColor:[UIColor colorWithRed:0.57f green:0.0f blue:0.85f alpha:1.0f]];
+    [DIYMenu addMenuItem:@"Portfolio" withIcon:[UIImage imageNamed:@"portfolioIcon@2x.png"] withColor:[UIColor colorWithRed:0.18f green:0.76f blue:0.93f alpha:1.0f]];
+    [DIYMenu addMenuItem:@"Skills" withIcon:[UIImage imageNamed:@"skillsIcon@2x.png"] withColor:[UIColor colorWithRed:0.28f green:0.55f blue:0.95f alpha:1.0f]];
+    [DIYMenu addMenuItem:@"Explore" withIcon:[UIImage imageNamed:@"exploreIcon@2x.png"] withColor:[UIColor colorWithRed:0.47f green:0.24f blue:0.93f alpha:1.0f]];
+    [DIYMenu addMenuItem:@"Settings" withIcon:[UIImage imageNamed:@"settingsIcon@2x.png"] withColor:[UIColor colorWithRed:0.57f green:0.0f blue:0.85f alpha:1.0f]];
     
     //
     
@@ -51,7 +51,7 @@
     return YES;
 }
 
-#pragma mark - DIYHeaderMenuDelegate
+#pragma mark - DIYMenuDelegate
 
 - (void)menuItemSelected:(NSString *)action
 {

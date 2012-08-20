@@ -1,21 +1,21 @@
 //
-//  DIYHeaderItem.m
-//  DIYHeaderMenu
+//  DIYMenuItem.m
+//  DIYMenu
 //
 //  Created by Jonathan Beilin on 8/13/12.
 //  Copyright (c) 2012 DIY. All rights reserved.
 //
 
-#import "DIYHeaderItem.h"
-#import "DIYHeaderOptions.h"
+#import "DIYMenuItem.h"
+#import "DIYMenuOptions.h"
 
 #import "UIView+Noise.h"
 
-@interface DIYHeaderItem ()
+@interface DIYMenuItem ()
 
 @end
 
-@implementation DIYHeaderItem
+@implementation DIYMenuItem
 
 @synthesize delegate = _delegate;
 @synthesize noise = _noise;

@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'DIYHeaderMenu' target in the 'DIYHeaderMenu' project
+// Prefix header for all source files of the 'DIYMenu' target in the 'DIYMenu' project
 //
 
 #import <Availability.h>
