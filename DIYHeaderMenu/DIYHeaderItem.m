@@ -44,6 +44,8 @@
         [self addSubview:self.shadingView];
         
         _isSelectable = true;
+        
+        _menuPosition = CGPointMake(frame.origin.x, frame.origin.y);
     }
     return self;
 }

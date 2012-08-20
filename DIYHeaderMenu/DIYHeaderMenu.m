@@ -12,6 +12,8 @@
 #import "DIYHeaderItem.h"
 #import "DIYMenuButton.h"
 
+#import <QuartzCore/QuartzCore.h>
+
 #define DegreesToRadians(x) ((x) * M_PI / 180.0)
 
 @interface DIYHeaderMenu ()
@@ -154,13 +156,31 @@
         // Bring the overlay window container thing to the front
         [self.overlayWindow makeKeyAndVisible];
         
+        //
+        // Animate in items
+        //
+        
+        self.titleBar.frame = CGRectMake(self.titleBar.frame.origin.x, (CGFloat) -ITEMHEIGHT, self.titleBar.frame.size.width, self.titleBar.frame.size.height);
+        
+        [self.menuItems enumerateObjectsUsingBlock:^(DIYHeaderItem *item, NSUInteger idx, BOOL *stop) {
+            item.frame = CGRectMake(item.frame.origin.x, (CGFloat) -ITEMHEIGHT * (idx + 2), item.frame.size.width, item.frame.size.height);
+        }];
+        
+        [UIView animateWithDuration:0.6f delay:0.01f options:UIViewAnimationOptionCurveEaseOut animations:^{
+            self.titleBar.frame = CGRectMake(self.titleBar.frame.origin.x, self.titleBar.menuPosition.y, self.titleBar.frame.size.width, self.titleBar.frame.size.height);
+            
+            for (DIYHeaderItem *item in self.menuItems) {
+                item.frame = CGRectMake(item.frame.origin.x, item.menuPosition.y, item.frame.size.width, item.frame.size.height);
+            }
+        } completion:^(BOOL finished) {
+            //
+        }];
+        
+        //
+        
         [UIView animateWithDuration:0.2f animations:^{
             self.blockingView.alpha = 0.75f;
         }];
-        
-        // slide in menu
-        
-        [self setNeedsDisplay];
     });
     
     self.isActivated = true;
@@ -173,7 +193,21 @@
 
 - (void)dismissMenu
 {
-    dispatch_async(dispatch_get_main_queue(), ^{        
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        // Animate out the items
+        [UIView animateWithDuration:0.4f delay:0.0f options:UIViewAnimationOptionCurveEaseOut animations:^{
+            self.titleBar.frame = CGRectMake(self.titleBar.frame.origin.x, (CGFloat) -ITEMHEIGHT, self.titleBar.frame.size.width, self.titleBar.frame.size.height);
+            
+            [self.menuItems enumerateObjectsUsingBlock:^(DIYHeaderItem *item, NSUInteger idx, BOOL *stop) {
+                item.frame = CGRectMake(item.frame.origin.x, (CGFloat) -ITEMHEIGHT * (idx + 2), item.frame.size.width, item.frame.size.height);
+            }];
+        } completion:^(BOOL finished) {
+            //
+        }];
+        
+        
+        // Fade out the overlay window and remove self from it
         [UIView animateWithDuration:0.2f animations:^{
             self.overlayWindow.alpha = 0.0f;
         } completion:^(BOOL finished) {
@@ -191,15 +225,6 @@
     
     self.isActivated = false;
 }
-
-#pragma mark - Drawing
-
-/*
-- (void)drawRect:(CGRect)rect
-{
-    
-}
- */
 
 #pragma mark - UI
 

@@ -20,6 +20,7 @@
 @property (nonatomic, assign) BOOL isSelected;
 @property (nonatomic, assign) BOOL isSelectable;
 @property (nonatomic, retain) UIView *shadingView;
+@property (nonatomic, assign) CGPoint menuPosition;
 
 // Fun stuff
 @property (nonatomic, retain) UILabel *name;
