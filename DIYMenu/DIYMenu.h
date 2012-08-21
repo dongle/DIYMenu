@@ -25,33 +25,32 @@
 @end
 
 @interface DIYMenu : UIView <DIYMenuItemDelegate> {
-
+@private
+    NSMutableArray              *_menuItems;
+    NSMutableArray              *_titleButtons;
+    BOOL                        _isActivated;
+    DIYMenuItem                 *_titleBar;
+    NSObject<DIYMenuDelegate>   *_delegate;
+    UIWindow                    *_overlayWindow;
+    UIView                      *_blockingView;
 }
 
-// Menu Item management
-@property (nonatomic, retain) NSMutableArray *menuItems;
-@property (nonatomic, retain) NSMutableArray *titleButtons;
+//
+// Class methods
+//
 
-// State
-@property (nonatomic, assign) BOOL isActivated;
-@property (nonatomic, assign) DIYMenuItem *currentItem;
-
-// Title bar
-@property (nonatomic, retain) DIYMenuItem *titleBar;
-
-// Internal (should be private)
-@property (assign) NSObject<DIYMenuDelegate> *delegate;
-@property (nonatomic, assign) UIWindow *overlayWindow;
-@property (nonatomic, assign) UIView *blockingView;
-
+// Setup
 + (void)setDelegate:(NSObject<DIYMenuDelegate> *)delegate;
 
 + (void)setTitle:(NSString *)title withDismissIcon:(UIImage *)dismissImage withColor:(UIColor *)color withFont:(UIFont *)font;
 + (void)addTitleButton:(NSString *)name withIcon:(UIImage *)image;
 + (void)addMenuItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color withFont:(UIFont *)font;
 
+// Usage
 + (void)show;
 + (void)dismiss;
 + (BOOL)isActivated;
+
+//
 
 @end

@@ -10,9 +10,9 @@
 
 @implementation DIYMenuButton
 
-@synthesize delegate = _delegate;
-@synthesize name = _name;
-@synthesize isSelected = _isSelected;
+@synthesize delegate    = _delegate;
+@synthesize name        = _name;
+@synthesize isSelected  = _isSelected;
 
 #pragma mark - Init
 
@@ -22,8 +22,33 @@
     
     if (self) {
         self.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+        _shadingView = [[UIView alloc] initWithFrame:self.frame];
+        self.shadingView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        self.shadingView.backgroundColor = [UIColor blackColor];
+        self.shadingView.userInteractionEnabled = false;
+        self.shadingView.alpha = 0.0f;
+        [self addSubview:self.shadingView];
     }
     return self;
+}
+
+#pragma mark - Drawing
+
+- (void)depictSelected
+{
+    if (!self.isSelected) {
+        self.shadingView.alpha = 0.5f;
+        [self bringSubviewToFront:self.shadingView];
+        self.isSelected = true;
+    }
+}
+
+- (void)depictUnselected
+{
+    if (self.isSelected) {
+        self.shadingView.alpha = 0.0f;
+        self.isSelected = false;
+    }
 }
 
 #pragma mark - Touching
@@ -32,46 +57,40 @@
 {
     [super touchesBegan:touches withEvent:event];
     
-    // Make look selected
+    [self depictSelected];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesMoved:touches withEvent:event];
     
-    // Make look unselected if move out?
+    CGPoint location = [[touches anyObject] locationInView:self];
+    if (CGRectContainsPoint(self.bounds, location)) {
+        [self depictSelected];
+    }
+    else {
+        [self depictUnselected];
+    }
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesCancelled:touches withEvent:event];
     
-    // Make look unselected
+    [self depictUnselected];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesEnded:touches withEvent:event];
     
-    // Make look unselected
+    [self depictUnselected];
     
     // Call delegate if touch ended in view
     CGPoint location = [[touches anyObject] locationInView:self];
     if (CGRectContainsPoint(self.bounds, location)) {
         [self.delegate diyMenuAction:self.name];
     }
-}
-
-- (void)depictSelected
-{
-    // transform a few pixels x,y
-    // add shading view
-}
-
-- (void)depictUnselected
-{
-    // return to normal place
-    // remove shading view
 }
 
 #pragma mark - Dealloc

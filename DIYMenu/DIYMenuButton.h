@@ -14,9 +14,10 @@
 
 // Internals
 @property (nonatomic, assign) NSObject<DIYMenuItemDelegate> *delegate;
-@property (nonatomic, assign) BOOL isSelected;
+@property (nonatomic, assign) BOOL                          isSelected;
+@property (nonatomic, retain) UIView                        *shadingView;
 
 // Public properties
-@property (nonatomic, retain) NSString *name;
+@property (nonatomic, retain) NSString                      *name;
 
 @end

@@ -17,13 +17,13 @@
 
 @implementation DIYMenuItem
 
-@synthesize delegate = _delegate;
-@synthesize noise = _noise;
+@synthesize delegate        = _delegate;
+@synthesize noise           = _noise;
 
-@synthesize name = _name;
-@synthesize icon = _icon;
-@synthesize isSelected = _isSelected;
-@synthesize isSelectable = _isSelectable;
+@synthesize name            = _name;
+@synthesize icon            = _icon;
+@synthesize isSelected      = _isSelected;
+@synthesize isSelectable    = _isSelectable;
 
 #pragma mark - Init & Setup
 
@@ -81,7 +81,6 @@
 - (void)depictSelected
 {
     if (!self.isSelected) {
-//        self.center = CGPointMake(self.center.x + 2.0f, self.center.y + 2.0f);
         self.shadingView.alpha = 0.5f;
         [self bringSubviewToFront:self.shadingView];
         self.isSelected = true;
@@ -91,7 +90,6 @@
 - (void)depictUnselected
 {
     if (self.isSelected) {
-//        self.center = CGPointMake(self.center.x - 2.0f, self.center.y - 2.0f);
         self.shadingView.alpha = 0.0f;
         self.isSelected = false;
     }

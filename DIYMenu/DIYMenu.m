@@ -17,21 +17,33 @@
 #define DegreesToRadians(x) ((x) * M_PI / 180.0)
 
 @interface DIYMenu ()
+// Menu Item management
+@property (nonatomic, retain) NSMutableArray               *menuItems;
+@property (nonatomic, retain) NSMutableArray               *titleButtons;
 
+// State
+@property (nonatomic, assign) BOOL                         isActivated;
+
+// Title bar
+@property (nonatomic, retain) DIYMenuItem                  *titleBar;
+
+// Internal
+@property (assign)            NSObject<DIYMenuDelegate>    *delegate;
+@property (nonatomic, assign) UIWindow                     *overlayWindow;
+@property (nonatomic, assign) UIView                       *blockingView;
 @end
 
 @implementation DIYMenu
 
-@synthesize menuItems = _menuItems;
-@synthesize titleButtons = _titleButtons;
+@synthesize menuItems       = _menuItems;
+@synthesize titleButtons    = _titleButtons;
 
-@synthesize isActivated = _isActivated;
-@synthesize currentItem = _currentItem;
+@synthesize isActivated     = _isActivated;
 
-@synthesize titleBar = _titleBar;
+@synthesize titleBar        = _titleBar;
 
-@synthesize overlayWindow = _overlayWindow;
-@synthesize blockingView = _blockingView;
+@synthesize overlayWindow   = _overlayWindow;
+@synthesize blockingView    = _blockingView;
 
 #pragma mark - Init
 
