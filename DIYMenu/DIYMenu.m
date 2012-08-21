@@ -264,13 +264,19 @@
         float padding = application.statusBarHidden ? 0 : application.statusBarFrame.size.height;
         _titleBar = [[DIYMenuItem alloc] initWithFrame:CGRectMake(0, padding, self.frame.size.width, ITEMHEIGHT)];
         
-        [self.titleBar setName:title withIcon:dismissImage withColor:color withFont:font];
+        [self.titleBar setName:title withIcon:nil withColor:color withFont:font];
         self.titleBar.isSelectable = false;
         
+        DIYMenuButton *button = [[DIYMenuButton alloc] initWithImage:dismissImage];
+        button.frame = CGRectMake(ICONPADDING, ICONPADDING, ICONSIZE, ICONSIZE);
+        button.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
+        
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedBackground)];
-        self.titleBar.icon.userInteractionEnabled = true;
-        [self.titleBar.icon addGestureRecognizer:tap];
+        button.userInteractionEnabled = true;
+        [button addGestureRecognizer:tap];
         [tap release];
+        
+        [self.titleBar addSubview:button];
         
         [self addSubview:self.titleBar];
     }

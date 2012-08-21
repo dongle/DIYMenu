@@ -60,9 +60,14 @@
     self.name.text = name;
     [self addSubview:self.name];
     
-    _icon = [[UIImageView alloc] initWithImage:image];
-    self.icon.frame = CGRectMake(ICONPADDING, ICONPADDING, ICONSIZE, ICONSIZE);
-    [self addSubview:self.icon];
+    if (image != nil) {
+        _icon = [[UIImageView alloc] initWithImage:image];
+        self.icon.frame = CGRectMake(ICONPADDING, ICONPADDING, ICONSIZE, ICONSIZE);
+        [self addSubview:self.icon];
+    }
+    else {
+        _icon = nil;
+    }
         
     self.backgroundColor = color;
     [self refreshNoise];

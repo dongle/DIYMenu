@@ -28,6 +28,9 @@
         self.shadingView.userInteractionEnabled = false;
         self.shadingView.alpha = 0.0f;
         [self addSubview:self.shadingView];
+        
+        _name = nil;
+        _delegate = nil;
     }
     return self;
 }
@@ -89,7 +92,9 @@
     // Call delegate if touch ended in view
     CGPoint location = [[touches anyObject] locationInView:self];
     if (CGRectContainsPoint(self.bounds, location)) {
-        [self.delegate diyMenuAction:self.name];
+        if (_name != nil) {
+            [self.delegate diyMenuAction:self.name];
+        }
     }
 }
 
