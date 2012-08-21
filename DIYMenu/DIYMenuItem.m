@@ -23,7 +23,6 @@
 @synthesize name            = _name;
 @synthesize icon            = _icon;
 @synthesize isSelected      = _isSelected;
-@synthesize isSelectable    = _isSelectable;
 
 #pragma mark - Init & Setup
 
@@ -42,8 +41,6 @@
         self.shadingView.userInteractionEnabled = false;
         self.shadingView.alpha = 0.0f;
         [self addSubview:self.shadingView];
-        
-        _isSelectable = true;
         
         _menuPosition = CGPointMake(frame.origin.x, frame.origin.y);
     }
@@ -106,18 +103,12 @@
 {
     [super touchesBegan:touches withEvent:event];
     
-    if (!self.isSelectable)
-        return;
-    
     [self depictSelected];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesMoved:touches withEvent:event];
-
-    if (!self.isSelectable)
-        return;
 
     CGPoint location = [[touches anyObject] locationInView:self];
     if (CGRectContainsPoint(self.bounds, location)) {
@@ -132,18 +123,12 @@
 {
     [super touchesCancelled:touches withEvent:event];
     
-    if (!self.isSelectable)
-        return;
-    
     [self depictUnselected];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesEnded:touches withEvent:event];
-    
-    if (!self.isSelectable)
-        return;
     
     [self depictUnselected];
     

@@ -27,9 +27,7 @@
 @interface DIYMenu : UIView <DIYMenuItemDelegate> {
 @private
     NSMutableArray              *_menuItems;
-    NSMutableArray              *_titleButtons;
     BOOL                        _isActivated;
-    DIYMenuItem                 *_titleBar;
     NSObject<DIYMenuDelegate>   *_delegate;
     UIWindow                    *_overlayWindow;
     UIView                      *_blockingView;
@@ -42,8 +40,6 @@
 // Setup
 + (void)setDelegate:(NSObject<DIYMenuDelegate> *)delegate;
 
-+ (void)setTitle:(NSString *)title withDismissIcon:(UIImage *)dismissImage withColor:(UIColor *)color withFont:(UIFont *)font;
-+ (void)addTitleButton:(NSString *)name withIcon:(UIImage *)image;
 + (void)addMenuItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color withFont:(UIFont *)font;
 
 // Usage

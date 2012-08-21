@@ -16,9 +16,8 @@
 
 // Internals
 @property (nonatomic, assign) NSObject<DIYMenuItemDelegate> *delegate;
-@property (nonatomic, assign) DIYMenuNoiseLayer                    *noise;
+@property (nonatomic, assign) DIYMenuNoiseLayer             *noise;
 @property (nonatomic, assign) BOOL                          isSelected;
-@property (nonatomic, assign) BOOL                          isSelectable;
 @property (nonatomic, retain) UIView                        *shadingView;
 @property (nonatomic, assign) CGPoint                       menuPosition;
 

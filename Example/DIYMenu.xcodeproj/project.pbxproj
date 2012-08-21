@@ -16,7 +16,6 @@
 		DE02A61A15D9D9450088E687 /* DIYViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE02A61815D9D9450088E687 /* DIYViewController.m */; };
 		DE02A61B15D9D9450088E687 /* DIYViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE02A61915D9D9450088E687 /* DIYViewController.xib */; };
 		DE18333315E2E50000F391C5 /* DIYMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = DE18332B15E2E50000F391C5 /* DIYMenu.m */; };
-		DE18333415E2E50000F391C5 /* DIYMenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = DE18332D15E2E50000F391C5 /* DIYMenuButton.m */; };
 		DE18333515E2E50000F391C5 /* DIYMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = DE18332F15E2E50000F391C5 /* DIYMenuItem.m */; };
 		DE18333615E2E50000F391C5 /* DIYMenuUIView+Noise.m in Sources */ = {isa = PBXBuildFile; fileRef = DE18333215E2E50000F391C5 /* DIYMenuUIView+Noise.m */; };
 		DE330C5315DB1D93002625D8 /* skillsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE330C5215DB1D93002625D8 /* skillsIcon@2x.png */; };
@@ -44,8 +43,6 @@
 		DE02A61915D9D9450088E687 /* DIYViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DIYViewController.xib; sourceTree = "<group>"; };
 		DE18332A15E2E50000F391C5 /* DIYMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIYMenu.h; sourceTree = "<group>"; };
 		DE18332B15E2E50000F391C5 /* DIYMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIYMenu.m; sourceTree = "<group>"; };
-		DE18332C15E2E50000F391C5 /* DIYMenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIYMenuButton.h; sourceTree = "<group>"; };
-		DE18332D15E2E50000F391C5 /* DIYMenuButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIYMenuButton.m; sourceTree = "<group>"; };
 		DE18332E15E2E50000F391C5 /* DIYMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIYMenuItem.h; sourceTree = "<group>"; };
 		DE18332F15E2E50000F391C5 /* DIYMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIYMenuItem.m; sourceTree = "<group>"; };
 		DE18333015E2E50000F391C5 /* DIYMenuOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIYMenuOptions.h; sourceTree = "<group>"; };
@@ -140,8 +137,6 @@
 			children = (
 				DE18332A15E2E50000F391C5 /* DIYMenu.h */,
 				DE18332B15E2E50000F391C5 /* DIYMenu.m */,
-				DE18332C15E2E50000F391C5 /* DIYMenuButton.h */,
-				DE18332D15E2E50000F391C5 /* DIYMenuButton.m */,
 				DE18332E15E2E50000F391C5 /* DIYMenuItem.h */,
 				DE18332F15E2E50000F391C5 /* DIYMenuItem.m */,
 				DE18333015E2E50000F391C5 /* DIYMenuOptions.h */,
@@ -226,7 +221,6 @@
 				DE02A60115D99FAB0088E687 /* DIYAppDelegate.m in Sources */,
 				DE02A61A15D9D9450088E687 /* DIYViewController.m in Sources */,
 				DE18333315E2E50000F391C5 /* DIYMenu.m in Sources */,
-				DE18333415E2E50000F391C5 /* DIYMenuButton.m in Sources */,
 				DE18333515E2E50000F391C5 /* DIYMenuItem.m in Sources */,
 				DE18333615E2E50000F391C5 /* DIYMenuUIView+Noise.m in Sources */,
 			);

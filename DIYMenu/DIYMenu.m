@@ -10,7 +10,6 @@
 #import "DIYMenuOptions.h"
 
 #import "DIYMenuItem.h"
-#import "DIYMenuButton.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -19,13 +18,9 @@
 @interface DIYMenu ()
 // Menu Item management
 @property (nonatomic, retain) NSMutableArray               *menuItems;
-@property (nonatomic, retain) NSMutableArray               *titleButtons;
 
 // State
 @property (nonatomic, assign) BOOL                         isActivated;
-
-// Title bar
-@property (nonatomic, retain) DIYMenuItem                  *titleBar;
 
 // Internal
 @property (assign)            NSObject<DIYMenuDelegate>    *delegate;
@@ -36,11 +31,8 @@
 @implementation DIYMenu
 
 @synthesize menuItems       = _menuItems;
-@synthesize titleButtons    = _titleButtons;
 
 @synthesize isActivated     = _isActivated;
-
-@synthesize titleBar        = _titleBar;
 
 @synthesize overlayWindow   = _overlayWindow;
 @synthesize blockingView    = _blockingView;
@@ -52,8 +44,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         _menuItems = [[NSMutableArray alloc] init];
-        _titleButtons = [[NSMutableArray alloc] init];
-        _titleBar = nil;
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.autoresizesSubviews = true;
     }
@@ -92,16 +82,6 @@
     [DIYMenu sharedView].delegate = delegate;
 }
 
-+ (void)setTitle:(NSString *)title withDismissIcon:(UIImage *)dismissImage withColor:(UIColor *)color withFont:(UIFont *)font
-{
-    [[DIYMenu sharedView] setTitle:title withDismissIcon:dismissImage withColor:color withFont:font];
-}
-
-+ (void)addTitleButton:(NSString *)name withIcon:(UIImage *)image
-{
-    [[DIYMenu sharedView] addTitleButton:name withIcon:image];
-}
-
 + (void)addMenuItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color withFont:(UIFont *)font
 {
     [[DIYMenu sharedView] addItem:name withIcon:image withColor:color withFont:font];
@@ -111,16 +91,30 @@
 
 - (UIWindow *)overlayWindow
 {
-    if(!self->_overlayWindow) {   
-        _overlayWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    if(!self->_overlayWindow) {
+        CGRect screenBounds = [UIScreen mainScreen].bounds;
+        UIApplication *application = [UIApplication sharedApplication];
+        
+        _overlayWindow = [[UIWindow alloc] initWithFrame:screenBounds];
         self->_overlayWindow.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self->_overlayWindow.backgroundColor = [UIColor clearColor];
         self->_overlayWindow.autoresizesSubviews = true;
         
-        _blockingView = [[[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds] autorelease];
+        CGFloat padding = ITEMHEIGHT;
+        if (!application.statusBarHidden) {
+            if (UIInterfaceOrientationIsPortrait(application.statusBarOrientation)) {
+                padding += application.statusBarFrame.size.height;
+            }
+            else {
+                padding += application.statusBarFrame.size.width;
+            }
+        }
+        
+        CGRect blockingFrame = CGRectMake(screenBounds.origin.x, screenBounds.origin.y + padding, screenBounds.size.width, screenBounds.size.height);
+        _blockingView = [[[UIView alloc] initWithFrame:blockingFrame] autorelease];
+        self.blockingView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.blockingView.backgroundColor = [UIColor blackColor];
         self.blockingView.alpha = 0.0f;
-        self.blockingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedBackground)];
         [self.blockingView addGestureRecognizer:tap];
@@ -149,7 +143,6 @@
             self.frame = CGRectMake(0, 0, self.overlayWindow.frame.size.height, self.overlayWindow.frame.size.width);
             
             // Refresh the noise on the header items (so the noise covers the entire width
-            [self.titleBar refreshNoise];
             for (DIYMenuItem *item in self.menuItems) {
                 [item refreshNoise];
             }
@@ -162,27 +155,28 @@
         // Animate in items
         //
         
-        self.titleBar.frame = CGRectMake(self.titleBar.frame.origin.x, (CGFloat) -ITEMHEIGHT, self.titleBar.frame.size.width, self.titleBar.frame.size.height);
-        
         [self.menuItems enumerateObjectsUsingBlock:^(DIYMenuItem *item, NSUInteger idx, BOOL *stop) {
             item.frame = CGRectMake(item.frame.origin.x, (CGFloat) -ITEMHEIGHT * (idx + 2), item.frame.size.width, item.frame.size.height);
         }];
         
-        [UIView animateWithDuration:0.6f delay:0.01f options:UIViewAnimationOptionCurveEaseOut animations:^{
-            self.titleBar.frame = CGRectMake(self.titleBar.frame.origin.x, self.titleBar.menuPosition.y, self.titleBar.frame.size.width, self.titleBar.frame.size.height);
+        [UIView animateWithDuration:0.4f delay:0.01f options:UIViewAnimationOptionCurveEaseOut animations:^{
             
-            for (DIYMenuItem *item in self.menuItems) {
+            [self.menuItems enumerateObjectsUsingBlock:^(DIYMenuItem *item, NSUInteger idx, BOOL *stop) {
                 item.frame = CGRectMake(item.frame.origin.x, item.menuPosition.y, item.frame.size.width, item.frame.size.height);
-            }
+            }];
+            
         } completion:^(BOOL finished) {
             //
         }];
         
         //
         
-        [UIView animateWithDuration:0.2f animations:^{
+        [UIView animateWithDuration:0.2f delay:0.2f options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.blockingView.alpha = 0.75f;
+        } completion:^(BOOL finished) {
+            //
         }];
+        
     });
     
     self.isActivated = true;
@@ -198,20 +192,20 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         
         // Animate out the items
-        [UIView animateWithDuration:0.4f delay:0.0f options:UIViewAnimationOptionCurveEaseOut animations:^{
-            self.titleBar.frame = CGRectMake(self.titleBar.frame.origin.x, (CGFloat) -ITEMHEIGHT, self.titleBar.frame.size.width, self.titleBar.frame.size.height);
+        [UIView animateWithDuration:0.4f delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
             
             [self.menuItems enumerateObjectsUsingBlock:^(DIYMenuItem *item, NSUInteger idx, BOOL *stop) {
                 item.frame = CGRectMake(item.frame.origin.x, (CGFloat) -ITEMHEIGHT * (idx + 2), item.frame.size.width, item.frame.size.height);
             }];
+            
         } completion:^(BOOL finished) {
             //
         }];
         
         
         // Fade out the overlay window and remove self from it
-        [UIView animateWithDuration:0.2f animations:^{
-            self.overlayWindow.alpha = 0.0f;
+        [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
+            self.blockingView.alpha = 0.0f;
         } completion:^(BOOL finished) {
             [self removeFromSuperview];
             [_overlayWindow release], _overlayWindow = nil;
@@ -257,39 +251,13 @@
 
 #pragma mark - Item management
 
-- (void)setTitle:(NSString *)title withDismissIcon:(UIImage *)dismissImage withColor:(UIColor *)color withFont:(UIFont *)font
-{
-    if (_titleBar == nil) {
-        UIApplication *application = [UIApplication sharedApplication];        
-        float padding = application.statusBarHidden ? 0 : application.statusBarFrame.size.height;
-        _titleBar = [[DIYMenuItem alloc] initWithFrame:CGRectMake(0, padding, self.frame.size.width, ITEMHEIGHT)];
-        
-        [self.titleBar setName:title withIcon:nil withColor:color withFont:font];
-        self.titleBar.isSelectable = false;
-        
-        DIYMenuButton *button = [[DIYMenuButton alloc] initWithImage:dismissImage];
-        button.frame = CGRectMake(ICONPADDING, ICONPADDING, ICONSIZE, ICONSIZE);
-        button.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
-        
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedBackground)];
-        button.userInteractionEnabled = true;
-        [button addGestureRecognizer:tap];
-        [tap release];
-        
-        [self.titleBar addSubview:button];
-        
-        [self addSubview:self.titleBar];
-    }
-}
-
 - (void)addItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color withFont:(UIFont *)font
 {
     UIApplication *application = [UIApplication sharedApplication];
     
     float padding = application.statusBarHidden ? 0 : application.statusBarFrame.size.height;
-    padding += self.titleBar ? ITEMHEIGHT : 0;
     
-    int itemCount = [self.menuItems count];
+    int itemCount = [self.menuItems count] + 1;
     
     CGRect itemFrame = CGRectMake(0, padding + itemCount*ITEMHEIGHT, self.frame.size.width, ITEMHEIGHT);
     DIYMenuItem *item = [[DIYMenuItem alloc] initWithFrame:itemFrame];
@@ -301,28 +269,11 @@
     [item release];
 }
 
-- (void)addTitleButton:(NSString *)name withIcon:(UIImage *)image
-{
-    int buttonCount = [self.titleButtons count] + 1;
-    
-    DIYMenuButton *button = [[DIYMenuButton alloc] initWithImage:image];
-    button.userInteractionEnabled = true;
-    button.delegate = self;
-    button.name = name;
-    button.frame = CGRectMake(self.titleBar.frame.size.width - ICONPADDING - (buttonCount * (ICONPADDING + ICONSIZE)), ICONPADDING, ICONSIZE, ICONSIZE);
-    
-    [self.titleButtons addObject:button];
-    [self.titleBar addSubview:button];
-    [button release];
-}
-
 #pragma mark - Dealloc
 
 - (void)releaseObjects
 {
     [_menuItems release], _menuItems = nil;
-    [_titleButtons release], _titleButtons = nil;
-    [_titleBar release], _titleBar = nil;
 }
 
 - (void)dealloc
