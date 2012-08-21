@@ -9,7 +9,7 @@
 #import "DIYMenuItem.h"
 #import "DIYMenuOptions.h"
 
-#import "UIView+Noise.h"
+#import "DIYMenuUIView+Noise.h"
 
 @interface DIYMenuItem ()
 

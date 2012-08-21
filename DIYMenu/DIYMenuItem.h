@@ -10,13 +10,13 @@
 
 #import "DIYMenu.h"
 
-@class NoiseLayer;
+@class DIYMenuNoiseLayer;
 
 @interface DIYMenuItem : UIView
 
 // Internals
 @property (nonatomic, assign) NSObject<DIYMenuItemDelegate> *delegate;
-@property (nonatomic, assign) NoiseLayer                    *noise;
+@property (nonatomic, assign) DIYMenuNoiseLayer                    *noise;
 @property (nonatomic, assign) BOOL                          isSelected;
 @property (nonatomic, assign) BOOL                          isSelectable;
 @property (nonatomic, retain) UIView                        *shadingView;

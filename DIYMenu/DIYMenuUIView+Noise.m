@@ -1,12 +1,12 @@
 //
-//  UIView+Noise.m
+//  DIYMenuUIView+Noise.m
 //  Field Recorder
 //
 //  Created by Andrew Sliwinski on 6/27/12.
 //  Copyright (c) 2012 DIY, Co. All rights reserved.
 //
 
-#import "UIView+Noise.h"
+#import "DIYMenuUIView+Noise.h"
 #include <stdlib.h>
 
 //
@@ -22,7 +22,7 @@
 
 #pragma Mark - Noise Layer
 
-@implementation NoiseLayer
+@implementation DIYMenuNoiseLayer
 
 static UIImage * JMNoiseImage;
 
@@ -68,7 +68,7 @@ static UIImage * JMNoiseImage;
             int y = arc4random() % (imageDimension + 1);
             int opacity = arc4random() % 100;
             CGFloat whiteLevel = arc4random() % 100;
-            [NoiseLayer drawPixelInContext:context point:CGPointMake(x, y) width:(kNoisePixelWidth * imageScale) opacity:(opacity) whiteLevel:(whiteLevel / 100.)];
+            [DIYMenuNoiseLayer drawPixelInContext:context point:CGPointMake(x, y) width:(kNoisePixelWidth * imageScale) opacity:(opacity) whiteLevel:(whiteLevel / 100.)];
         }
         
         CGImageRef imageRef = CGBitmapContextCreateImage(context);
@@ -88,7 +88,7 @@ static UIImage * JMNoiseImage;
 - (void)drawInContext:(CGContextRef)ctx;
 {
     UIGraphicsPushContext(ctx);
-    [[NoiseLayer noiseTileImage] drawAsPatternInRect:self.bounds];
+    [[DIYMenuNoiseLayer noiseTileImage] drawAsPatternInRect:self.bounds];
     UIGraphicsPopContext();
 }
 
@@ -98,14 +98,14 @@ static UIImage * JMNoiseImage;
 
 @implementation UIView (Noise)
 
-- (NoiseLayer *)applyNoise;
+- (DIYMenuNoiseLayer *)applyNoise;
 {
     return [self applyNoiseWithOpacity:kNoiseDefaultOpacity];
 }
 
-- (NoiseLayer *)applyNoiseWithOpacity:(CGFloat)opacity atLayerIndex:(NSUInteger) layerIndex;
+- (DIYMenuNoiseLayer *)applyNoiseWithOpacity:(CGFloat)opacity atLayerIndex:(NSUInteger) layerIndex;
 {
-    NoiseLayer * noiseLayer = [[[NoiseLayer alloc] init] autorelease];
+    DIYMenuNoiseLayer *noiseLayer = [[[DIYMenuNoiseLayer alloc] init] autorelease];
     [noiseLayer setFrame:self.bounds];
     noiseLayer.masksToBounds = YES;
     noiseLayer.opacity = opacity;
@@ -114,7 +114,7 @@ static UIImage * JMNoiseImage;
     return noiseLayer;
 }
 
-- (NoiseLayer *)applyNoiseWithOpacity:(CGFloat)opacity;
+- (DIYMenuNoiseLayer *)applyNoiseWithOpacity:(CGFloat)opacity;
 {
     return [self applyNoiseWithOpacity:opacity atLayerIndex:0];
 }
@@ -138,7 +138,7 @@ static UIImage * JMNoiseImage;
     CGContextClip(context);
     CGContextSetBlendMode(context, blendMode);
     CGContextSetAlpha(context, opacity);
-    [[NoiseLayer noiseTileImage] drawAsPatternInRect:self.bounds];
+    [[DIYMenuNoiseLayer noiseTileImage] drawAsPatternInRect:self.bounds];
     CGContextRestoreGState(context);    
 }
 
