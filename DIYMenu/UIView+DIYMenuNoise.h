@@ -1,5 +1,5 @@
 //
-//  DIYMenuUIView+Noise.h
+//  UIView+DIYMenuNoise.h
 //  Field Recorder
 //
 //  Created by Andrew Sliwinski on 6/27/12.

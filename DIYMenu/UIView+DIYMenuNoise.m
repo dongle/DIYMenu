@@ -1,12 +1,12 @@
 //
-//  DIYMenuUIView+Noise.m
+//  UIView+DIYMenuNoise.m
 //  Field Recorder
 //
 //  Created by Andrew Sliwinski on 6/27/12.
 //  Copyright (c) 2012 DIY, Co. All rights reserved.
 //
 
-#import "DIYMenuUIView+Noise.h"
+#import "UIView+DIYMenuNoise.h"
 #include <stdlib.h>
 
 //
@@ -96,7 +96,7 @@ static UIImage * JMNoiseImage;
 
 #pragma Mark - UIView implementations
 
-@implementation UIView (Noise)
+@implementation UIView (DIYMenuNoise)
 
 - (DIYMenuNoiseLayer *)applyNoise;
 {
