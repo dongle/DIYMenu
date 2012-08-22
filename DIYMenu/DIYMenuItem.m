@@ -74,10 +74,12 @@
 
 - (void)refreshNoise
 {
+    /*
     if (self.noise != nil) {
         [self.noise removeFromSuperlayer];
     }
     self.noise = [self applyNoise];
+     */
 }
 
 - (void)depictSelected
