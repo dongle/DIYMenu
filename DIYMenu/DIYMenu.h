@@ -10,7 +10,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class DIYMenuItem;
+@class DIYMenuItem, DIYWindowPassthrough;
 
 @protocol DIYMenuDelegate <NSObject>
 @required
@@ -29,7 +29,7 @@
     NSMutableArray              *_menuItems;
     BOOL                        _isActivated;
     NSObject<DIYMenuDelegate>   *_delegate;
-    UIWindow                    *_overlayWindow;
+    DIYWindowPassthrough                    *_overlayWindow;
     UIView                      *_blockingView;
 }
 

@@ -11,6 +11,8 @@
 
 #import "DIYMenuItem.h"
 
+#import "DIYWindowPassthrough.h"
+
 #import <QuartzCore/QuartzCore.h>
 
 #define DegreesToRadians(x) ((x) * M_PI / 180.0)
@@ -24,7 +26,7 @@
 
 // Internal
 @property (assign)            NSObject<DIYMenuDelegate>    *delegate;
-@property (nonatomic, assign) UIWindow                     *overlayWindow;
+@property (nonatomic, assign) DIYWindowPassthrough                     *overlayWindow;
 @property (nonatomic, assign) UIView                       *blockingView;
 @end
 
@@ -95,10 +97,11 @@
         CGRect screenBounds = [UIScreen mainScreen].bounds;
         UIApplication *application = [UIApplication sharedApplication];
         
-        _overlayWindow = [[UIWindow alloc] initWithFrame:screenBounds];
+        _overlayWindow = [[DIYWindowPassthrough alloc] initWithFrame:screenBounds];
         self->_overlayWindow.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self->_overlayWindow.backgroundColor = [UIColor clearColor];
         self->_overlayWindow.autoresizesSubviews = true;
+        self->_overlayWindow.exclusiveTouch = false;
         
         CGFloat padding = ITEMHEIGHT;
         if (!application.statusBarHidden) {

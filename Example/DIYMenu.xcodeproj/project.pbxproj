@@ -24,6 +24,7 @@
 		DE37534815DC4D200034BC6E /* exploreIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE37534215DC4D200034BC6E /* exploreIcon@2x.png */; };
 		DE37534915DC4D200034BC6E /* portfolioIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE37534315DC4D200034BC6E /* portfolioIcon@2x.png */; };
 		DE37534A15DC4D200034BC6E /* settingsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE37534415DC4D200034BC6E /* settingsIcon@2x.png */; };
+		DEFB665F15E5A211003596F1 /* DIYWindowPassthrough.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFB665E15E5A211003596F1 /* DIYWindowPassthrough.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,8 @@
 		DE37534215DC4D200034BC6E /* exploreIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "exploreIcon@2x.png"; sourceTree = "<group>"; };
 		DE37534315DC4D200034BC6E /* portfolioIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "portfolioIcon@2x.png"; sourceTree = "<group>"; };
 		DE37534415DC4D200034BC6E /* settingsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settingsIcon@2x.png"; sourceTree = "<group>"; };
+		DEFB665D15E5A211003596F1 /* DIYWindowPassthrough.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIYWindowPassthrough.h; sourceTree = "<group>"; };
+		DEFB665E15E5A211003596F1 /* DIYWindowPassthrough.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DIYWindowPassthrough.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +140,8 @@
 				DE18332E15E2E50000F391C5 /* DIYMenuItem.h */,
 				DE18332F15E2E50000F391C5 /* DIYMenuItem.m */,
 				DE18333015E2E50000F391C5 /* DIYMenuOptions.h */,
+				DEFB665D15E5A211003596F1 /* DIYWindowPassthrough.h */,
+				DEFB665E15E5A211003596F1 /* DIYWindowPassthrough.m */,
 			);
 			name = DIYMenu;
 			path = ../DIYMenu;
@@ -217,6 +222,7 @@
 				DE02A61A15D9D9450088E687 /* DIYViewController.m in Sources */,
 				DE18333315E2E50000F391C5 /* DIYMenu.m in Sources */,
 				DE18333515E2E50000F391C5 /* DIYMenuItem.m in Sources */,
+				DEFB665F15E5A211003596F1 /* DIYWindowPassthrough.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

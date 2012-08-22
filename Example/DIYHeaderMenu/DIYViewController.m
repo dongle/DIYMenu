@@ -23,7 +23,10 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
+        tap.cancelsTouchesInView = false;
+        [self.view addGestureRecognizer:tap];
+        [tap release];
     }
     return self;
 }
@@ -33,6 +36,11 @@
 - (IBAction)showMenu:(id)sender
 {
     [DIYMenu show];
+}
+
+- (IBAction)tapped:(id)sender
+{
+    NSLog(@"tapped background");
 }
 
 #pragma mark - Rotation
