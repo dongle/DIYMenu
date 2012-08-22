@@ -17,7 +17,6 @@
 		DE02A61B15D9D9450088E687 /* DIYViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE02A61915D9D9450088E687 /* DIYViewController.xib */; };
 		DE18333315E2E50000F391C5 /* DIYMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = DE18332B15E2E50000F391C5 /* DIYMenu.m */; };
 		DE18333515E2E50000F391C5 /* DIYMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = DE18332F15E2E50000F391C5 /* DIYMenuItem.m */; };
-		DE18333615E2E50000F391C5 /* UIView+DIYMenuNoise.m in Sources */ = {isa = PBXBuildFile; fileRef = DE18333215E2E50000F391C5 /* UIView+DIYMenuNoise.m */; };
 		DE330C5315DB1D93002625D8 /* skillsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE330C5215DB1D93002625D8 /* skillsIcon@2x.png */; };
 		DE330C6015DB2CA2002625D8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE330C5F15DB2CA2002625D8 /* QuartzCore.framework */; };
 		DE37534615DC4D200034BC6E /* cameraIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE37534015DC4D200034BC6E /* cameraIcon@2x.png */; };
@@ -46,8 +45,6 @@
 		DE18332E15E2E50000F391C5 /* DIYMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIYMenuItem.h; sourceTree = "<group>"; };
 		DE18332F15E2E50000F391C5 /* DIYMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = DIYMenuItem.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		DE18333015E2E50000F391C5 /* DIYMenuOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DIYMenuOptions.h; sourceTree = "<group>"; };
-		DE18333115E2E50000F391C5 /* UIView+DIYMenuNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "UIView+DIYMenuNoise.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		DE18333215E2E50000F391C5 /* UIView+DIYMenuNoise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "UIView+DIYMenuNoise.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		DE330C5215DB1D93002625D8 /* skillsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "skillsIcon@2x.png"; sourceTree = "<group>"; };
 		DE330C5F15DB2CA2002625D8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		DE37534015DC4D200034BC6E /* cameraIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cameraIcon@2x.png"; sourceTree = "<group>"; };
@@ -140,8 +137,6 @@
 				DE18332E15E2E50000F391C5 /* DIYMenuItem.h */,
 				DE18332F15E2E50000F391C5 /* DIYMenuItem.m */,
 				DE18333015E2E50000F391C5 /* DIYMenuOptions.h */,
-				DE18333115E2E50000F391C5 /* UIView+DIYMenuNoise.h */,
-				DE18333215E2E50000F391C5 /* UIView+DIYMenuNoise.m */,
 			);
 			name = DIYMenu;
 			path = ../DIYMenu;
@@ -222,7 +217,6 @@
 				DE02A61A15D9D9450088E687 /* DIYViewController.m in Sources */,
 				DE18333315E2E50000F391C5 /* DIYMenu.m in Sources */,
 				DE18333515E2E50000F391C5 /* DIYMenuItem.m in Sources */,
-				DE18333615E2E50000F391C5 /* UIView+DIYMenuNoise.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
