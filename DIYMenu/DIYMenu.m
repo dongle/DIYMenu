@@ -141,11 +141,6 @@
             self.overlayWindow.frame = CGRectMake(0, 0, self.overlayWindow.frame.size.height, self.overlayWindow.frame.size.width);
             
             self.frame = CGRectMake(0, 0, self.overlayWindow.frame.size.height, self.overlayWindow.frame.size.width);
-            
-            // Refresh the noise on the header items (so the noise covers the entire width
-            for (DIYMenuItem *item in self.menuItems) {
-                [item refreshNoise];
-            }
         }
         
         // Bring the overlay window container thing to the front

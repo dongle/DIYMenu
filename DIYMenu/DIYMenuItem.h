@@ -10,13 +10,10 @@
 
 #import "DIYMenu.h"
 
-@class DIYMenuNoiseLayer;
-
 @interface DIYMenuItem : UIView
 
 // Internals
 @property (nonatomic, assign) NSObject<DIYMenuItemDelegate> *delegate;
-@property (nonatomic, assign) DIYMenuNoiseLayer             *noise;
 @property (nonatomic, assign) BOOL                          isSelected;
 @property (nonatomic, retain) UIView                        *shadingView;
 @property (nonatomic, assign) CGPoint                       menuPosition;
@@ -26,7 +23,5 @@
 @property (nonatomic, retain) UIImageView                   *icon;
 
 - (void)setName:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color withFont:(UIFont *)font;
-
-- (void)refreshNoise;
 
 @end

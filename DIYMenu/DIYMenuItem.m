@@ -9,8 +9,6 @@
 #import "DIYMenuItem.h"
 #import "DIYMenuOptions.h"
 
-#import "UIView+DIYMenuNoise.h"
-
 @interface DIYMenuItem ()
 
 @end
@@ -18,7 +16,6 @@
 @implementation DIYMenuItem
 
 @synthesize delegate        = _delegate;
-@synthesize noise           = _noise;
 
 @synthesize name            = _name;
 @synthesize icon            = _icon;
@@ -33,7 +30,6 @@
         _delegate = nil;
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.autoresizesSubviews = true;
-        _noise = nil;
         
         _shadingView = [[UIView alloc] initWithFrame:self.bounds];
         self.shadingView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -67,20 +63,9 @@
     }
         
     self.backgroundColor = color;
-    [self refreshNoise];
 }
 
 #pragma mark - Drawing
-
-- (void)refreshNoise
-{
-    /*
-    if (self.noise != nil) {
-        [self.noise removeFromSuperlayer];
-    }
-    self.noise = [self applyNoise];
-     */
-}
 
 - (void)depictSelected
 {
