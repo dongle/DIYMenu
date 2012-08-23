@@ -267,6 +267,25 @@
     [item release];
 }
 
+// TODO: do something smart with the menu frames
++ (void)hideMenuItemNamed:(NSString *)name
+{
+    for (DIYMenuItem *item in [DIYMenu sharedView].menuItems) {
+        if ([item.name.text isEqualToString:name]) {
+            item.hidden = true;
+        }
+    }
+}
+
++ (void)showMenuItemNamed:(NSString *)name
+{
+    for (DIYMenuItem *item in [DIYMenu sharedView].menuItems) {
+        if ([item.name.text isEqualToString:name]) {
+            item.hidden = false;
+        }
+    }
+}
+
 #pragma mark - Dealloc
 
 - (void)releaseObjects
