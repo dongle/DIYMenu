@@ -26,7 +26,7 @@
 
 // Internal
 @property (assign)            NSObject<DIYMenuDelegate>    *delegate;
-@property (nonatomic, assign) DIYWindowPassthrough                     *overlayWindow;
+@property (nonatomic, assign) DIYWindowPassthrough         *overlayWindow;
 @property (nonatomic, assign) UIView                       *blockingView;
 @end
 

@@ -10,11 +10,12 @@
 #define DIYMenu_DIYMenuOptions_h
 
 #define ITEMHEIGHT 47.0f
+#define ITEMPADDING 19.0f
 
 #define ICONPADDING 10.0f
 #define ICONSIZE 27.0f
 
-#define FONT_FAMILY @"Helvetica-Neue"
-#define FONT_SIZE 32
+#define MENUFONT_FAMILY @"Helvetica-Neue"
+#define MENUFONT_SIZE 32
 
 #endif
