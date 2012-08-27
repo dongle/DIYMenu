@@ -19,6 +19,7 @@
 
 @synthesize name            = _name;
 @synthesize icon            = _icon;
+@synthesize glyph           = _glyph;
 @synthesize isSelected      = _isSelected;
 
 #pragma mark - Init & Setup
@@ -43,8 +44,8 @@
     return self;
 }
 
-- (void)setName:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color withFont:(UIFont *)font
-{    
+- (void)setName:(NSString *)name withColor:(UIColor *)color withFont:(UIFont *)font
+{
     CGRect labelFrame = CGRectMake(ICONPADDING + ICONSIZE + ITEMPADDING, ICONPADDING, self.frame.size.width, ICONSIZE);
     _name = [[UILabel alloc] initWithFrame:labelFrame];
     self.name.backgroundColor = [UIColor clearColor];
@@ -52,6 +53,16 @@
     self.name.font = font;
     self.name.text = name;
     [self addSubview:self.name];
+    
+    self.backgroundColor = color;
+    
+    _icon = nil;
+    _glyph = nil;
+}
+
+- (void)setName:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color withFont:(UIFont *)font
+{
+    [self setName:name withColor:color withFont:font];
     
     if (image != nil) {
         _icon = [[UIImageView alloc] initWithImage:image];
@@ -61,8 +72,25 @@
     else {
         _icon = nil;
     }
-        
-    self.backgroundColor = color;
+}
+
+- (void)setName:(NSString *)name withGlyph:(NSString *)glyph withColor:(UIColor *)color withFont:(UIFont *)font withGlyphFont:(UIFont *)glyphFont
+{
+    [self setName:name withColor:color withFont:font];
+    
+    if (glyph != nil && glyphFont != nil) {
+        CGRect glyphFrame = CGRectMake(ICONPADDING - (ICONSIZE/2), ICONPADDING + GLYPHPADDINGADJUST, 2*ICONSIZE, ICONSIZE + GLYPHPADDINGADJUST);
+        _glyph = [[UILabel alloc] initWithFrame:glyphFrame];
+        self.glyph.backgroundColor = [UIColor clearColor];
+        self.glyph.textColor = [UIColor whiteColor];
+        self.glyph.textAlignment = UITextAlignmentCenter;
+        self.glyph.font = glyphFont;
+        self.glyph.text = glyph;
+        [self addSubview:self.glyph];
+    }
+    else {
+        _glyph = nil;
+    }
 }
 
 #pragma mark - Drawing
@@ -133,6 +161,7 @@
     _delegate = nil;
     [_name release], _name = nil;
     [_icon release], _icon = nil;
+    [_glyph release], _glyph = nil;
     [_shadingView release], _shadingView = nil;
 }
 
