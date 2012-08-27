@@ -41,6 +41,7 @@
 + (void)setDelegate:(NSObject<DIYMenuDelegate> *)delegate;
 
 + (void)addMenuItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color withFont:(UIFont *)font;
++ (void)addMenuItem:(NSString *)name withGlyph:(NSString *)glyph withColor:(UIColor *)color withFont:(UIFont *)font withGlyphFont:(UIFont *)glyphFont;
 
 // Usage
 + (void)show;

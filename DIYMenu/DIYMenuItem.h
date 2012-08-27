@@ -21,7 +21,10 @@
 // Fun stuff
 @property (nonatomic, retain) UILabel                       *name;
 @property (nonatomic, retain) UIImageView                   *icon;
+@property (nonatomic, retain) UILabel                       *glyph;
 
+- (void)setName:(NSString *)name withColor:(UIColor *)color withFont:(UIFont *)font;
 - (void)setName:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color withFont:(UIFont *)font;
+- (void)setName:(NSString *)name withGlyph:(NSString *)glyph withColor:(UIColor *)color withFont:(UIFont *)font withGlyphFont:(UIFont *)glyphFont;
 
 @end

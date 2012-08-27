@@ -89,6 +89,11 @@
     [[DIYMenu sharedView] addItem:name withIcon:image withColor:color withFont:font];
 }
 
++ (void)addMenuItem:(NSString *)name withGlyph:(NSString *)glyph withColor:(UIColor *)color withFont:(UIFont *)font withGlyphFont:(UIFont *)glyphFont
+{
+    [[DIYMenu sharedView] addItem:name withGlyph:glyph withColor:color withFont:font withGlyphFont:glyphFont];
+}
+
 #pragma mark - Getters
 
 - (UIWindow *)overlayWindow
@@ -249,7 +254,7 @@
 
 #pragma mark - Item management
 
-- (void)addItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color withFont:(UIFont *)font
+- (CGRect)newItemFrame
 {
     UIApplication *application = [UIApplication sharedApplication];
     
@@ -257,8 +262,12 @@
     
     int itemCount = [self.menuItems count] + 1;
     
-    CGRect itemFrame = CGRectMake(0, padding + itemCount*ITEMHEIGHT, self.frame.size.width, ITEMHEIGHT);
-    DIYMenuItem *item = [[DIYMenuItem alloc] initWithFrame:itemFrame];
+    return CGRectMake(0, padding + itemCount*ITEMHEIGHT, self.frame.size.width, ITEMHEIGHT);
+}
+
+- (void)addItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color withFont:(UIFont *)font
+{
+    DIYMenuItem *item = [[DIYMenuItem alloc] initWithFrame:[self newItemFrame]];
     [item setName:name withIcon:image withColor:color withFont:font];
     item.delegate = self;
     
@@ -266,6 +275,19 @@
     [self addSubview:item];
     [item release];
 }
+
+- (void)addItem:(NSString *)name withGlyph:(NSString *)glyph withColor:(UIColor *)color withFont:(UIFont *)font withGlyphFont:(UIFont *)glyphFont
+{
+    DIYMenuItem *item = [[DIYMenuItem alloc] initWithFrame:[self newItemFrame]];
+    [item setName:name withGlyph:glyph withColor:color withFont:font withGlyphFont:glyphFont];
+    item.delegate = self;
+    
+    [self.menuItems addObject:item];
+    [self addSubview:item];
+    [item release];
+}
+
+
 
 // TODO: do something smart with the menu frames
 + (void)hideMenuItemNamed:(NSString *)name
