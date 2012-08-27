@@ -15,6 +15,8 @@
 #define ICONPADDING 10.0f
 #define ICONSIZE 27.0f
 
+#define GLYPHPADDINGADJUST 2.0f
+
 #define MENUFONT_FAMILY @"Helvetica-Neue"
 #define MENUFONT_SIZE 32
 
