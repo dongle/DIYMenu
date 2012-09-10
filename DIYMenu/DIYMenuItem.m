@@ -15,13 +15,6 @@
 
 @implementation DIYMenuItem
 
-@synthesize delegate        = _delegate;
-
-@synthesize name            = _name;
-@synthesize icon            = _icon;
-@synthesize glyph           = _glyph;
-@synthesize isSelected      = _isSelected;
-
 #pragma mark - Init & Setup
 
 - (id)initWithFrame:(CGRect)frame

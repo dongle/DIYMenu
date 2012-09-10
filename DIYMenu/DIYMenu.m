@@ -32,13 +32,6 @@
 
 @implementation DIYMenu
 
-@synthesize menuItems       = _menuItems;
-
-@synthesize isActivated     = _isActivated;
-
-@synthesize overlayWindow   = _overlayWindow;
-@synthesize blockingView    = _blockingView;
-
 #pragma mark - Init
 
 - (id)initWithFrame:(CGRect)frame
