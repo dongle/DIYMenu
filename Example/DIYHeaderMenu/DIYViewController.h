@@ -10,6 +10,6 @@
 
 @interface DIYViewController : UIViewController
 
-@property (retain, nonatomic) IBOutlet UIButton *menuButton;
+@property IBOutlet UIButton *menuButton;
 
 @end

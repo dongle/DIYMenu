@@ -149,19 +149,12 @@
 
 #pragma mark - Dealloc
 
-- (void)releaseObjects
-{
-    _delegate = nil;
-    [_name release], _name = nil;
-    [_icon release], _icon = nil;
-    [_glyph release], _glyph = nil;
-    [_shadingView release], _shadingView = nil;
-}
-
 - (void)dealloc
 {
-    [self releaseObjects];
-    [super dealloc];
+    _shadingView = nil;
+    _name = nil;
+    _icon = nil;
+    _glyph = nil;
 }
 
 @end

@@ -19,15 +19,15 @@
 
 @interface DIYMenu ()
 // Menu Item management
-@property (nonatomic, retain) NSMutableArray               *menuItems;
+@property                     NSMutableArray            *menuItems;
 
 // State
-@property (nonatomic, assign) BOOL                         isActivated;
+@property (assign)            BOOL                      isActivated;
 
 // Internal
-@property (assign)            NSObject<DIYMenuDelegate>    *delegate;
-@property (nonatomic, assign) DIYWindowPassthrough         *overlayWindow;
-@property (nonatomic, assign) UIView                       *blockingView;
+@property (unsafe_unretained) NSObject<DIYMenuDelegate> *delegate;
+@property (nonatomic)         DIYWindowPassthrough      *overlayWindow;
+@property (weak)              UIView                    *blockingView;
 @end
 
 @implementation DIYMenu
@@ -112,14 +112,14 @@
         }
         
         CGRect blockingFrame = CGRectMake(screenBounds.origin.x, screenBounds.origin.y + padding, screenBounds.size.width, screenBounds.size.height);
-        _blockingView = [[[UIView alloc] initWithFrame:blockingFrame] autorelease];
+        UIView *blocking = [[UIView alloc] initWithFrame:blockingFrame];
+        _blockingView = blocking;
         self.blockingView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         self.blockingView.backgroundColor = [UIColor blackColor];
         self.blockingView.alpha = 0.0f;
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedBackground)];
         [self.blockingView addGestureRecognizer:tap];
-        [tap release];
         
         [self->_overlayWindow addSubview:self.blockingView];
     }
@@ -204,7 +204,7 @@
             self.blockingView.alpha = 0.0f;
         } completion:^(BOOL finished) {
             [self removeFromSuperview];
-            [_overlayWindow release], _overlayWindow = nil;
+            _overlayWindow = nil;
             
             [[UIApplication sharedApplication].windows enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(UIWindow *window, NSUInteger idx, BOOL *stop) {
                 if ([window isKindOfClass:[UIWindow class]] && window.windowLevel == UIWindowLevelNormal) {
@@ -266,7 +266,6 @@
     
     [self.menuItems addObject:item];
     [self addSubview:item];
-    [item release];
 }
 
 - (void)addItem:(NSString *)name withGlyph:(NSString *)glyph withColor:(UIColor *)color withFont:(UIFont *)font withGlyphFont:(UIFont *)glyphFont
@@ -277,7 +276,6 @@
     
     [self.menuItems addObject:item];
     [self addSubview:item];
-    [item release];
 }
 
 
@@ -303,15 +301,12 @@
 
 #pragma mark - Dealloc
 
-- (void)releaseObjects
-{
-    [_menuItems release], _menuItems = nil;
-}
-
 - (void)dealloc
 {
-    [self releaseObjects];
-    [super dealloc];
+    _menuItems = nil;
+    _delegate = nil;
+    _overlayWindow = nil;
+    _blockingView = nil;
 }
 
 @end

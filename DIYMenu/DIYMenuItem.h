@@ -13,15 +13,15 @@
 @interface DIYMenuItem : UIView
 
 // Internals
-@property (nonatomic, assign) NSObject<DIYMenuItemDelegate> *delegate;
-@property (nonatomic, assign) BOOL                          isSelected;
-@property (nonatomic, retain) UIView                        *shadingView;
-@property (nonatomic, assign) CGPoint                       menuPosition;
+@property (unsafe_unretained) NSObject<DIYMenuItemDelegate> *delegate;
+@property (assign)            BOOL                          isSelected;
+@property                     UIView                        *shadingView;
+@property (assign)            CGPoint                       menuPosition;
 
 // Fun stuff
-@property (nonatomic, retain) UILabel                       *name;
-@property (nonatomic, retain) UIImageView                   *icon;
-@property (nonatomic, retain) UILabel                       *glyph;
+@property                     UILabel                       *name;
+@property                     UIImageView                   *icon;
+@property                     UILabel                       *glyph;
 
 - (void)setName:(NSString *)name withColor:(UIColor *)color withFont:(UIFont *)font;
 - (void)setName:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color withFont:(UIFont *)font;

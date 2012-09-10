@@ -290,6 +290,7 @@
 		DE02A60515D99FAB0088E687 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DIYHeaderMenu/DIYMenu-Prefix.pch";
 				INFOPLIST_FILE = "DIYHeaderMenu/DIYMenu-Info.plist";
@@ -301,6 +302,7 @@
 		DE02A60615D99FAB0088E687 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DIYHeaderMenu/DIYMenu-Prefix.pch";
 				INFOPLIST_FILE = "DIYHeaderMenu/DIYMenu-Info.plist";

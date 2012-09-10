@@ -12,6 +12,6 @@
 
 @interface DIYAppDelegate : UIResponder <UIApplicationDelegate, DIYMenuDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
+@property (nonatomic) UIWindow *window;
 
 @end

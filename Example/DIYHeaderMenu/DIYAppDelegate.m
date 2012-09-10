@@ -12,18 +12,13 @@
 
 @implementation DIYAppDelegate
 
-- (void)dealloc
-{
-    [_window release];
-    [super dealloc];
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     
-    UIFont *font = [UIFont fontWithName:FONT_FAMILY size:FONT_SIZE];
+    UIFont *font = [UIFont systemFontOfSize:24];
     
     //
     // Set up the menu
@@ -42,7 +37,6 @@
     // A view controller with a button to show the menu
     DIYViewController *vc = [[DIYViewController alloc] init];
     self.window.rootViewController = vc;
-    [vc release];
 
     [self.window makeKeyAndVisible];
     return YES;

@@ -24,14 +24,7 @@
 - (void)diyMenuAction:(NSString *)action;
 @end
 
-@interface DIYMenu : UIView <DIYMenuItemDelegate> {
-@private
-    NSMutableArray              *_menuItems;
-    BOOL                        _isActivated;
-    NSObject<DIYMenuDelegate>   *_delegate;
-    DIYWindowPassthrough                    *_overlayWindow;
-    UIView                      *_blockingView;
-}
+@interface DIYMenu : UIView <DIYMenuItemDelegate>
 
 //
 // Class methods

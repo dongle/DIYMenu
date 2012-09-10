@@ -15,8 +15,6 @@
 
 @implementation DIYViewController
 
-@synthesize menuButton;
-
 #pragma mark - Init
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -26,7 +24,6 @@
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
         tap.cancelsTouchesInView = false;
         [self.view addGestureRecognizer:tap];
-        [tap release];
     }
     return self;
 }
@@ -50,10 +47,4 @@
     return true;
 }
 
-#pragma mark - Dealloc
-
-- (void)dealloc {
-    [menuButton release];
-    [super dealloc];
-}
 @end
