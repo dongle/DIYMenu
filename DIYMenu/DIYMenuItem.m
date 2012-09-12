@@ -41,7 +41,7 @@
 {
     CGRect labelFrame = CGRectMake(ICONPADDING + ICONSIZE + ITEMPADDING, ICONPADDING, self.frame.size.width, ICONSIZE);
     _name = [[UILabel alloc] initWithFrame:labelFrame];
-    self.name.backgroundColor = [UIColor clearColor];
+    self.name.backgroundColor = color;
     self.name.textColor = [UIColor whiteColor];
     self.name.font = font;
     self.name.text = name;
@@ -74,7 +74,7 @@
     if (glyph != nil && glyphFont != nil) {
         CGRect glyphFrame = CGRectMake(ICONPADDING - (ICONSIZE/2), ICONPADDING + GLYPHPADDINGADJUST, 2*ICONSIZE, ICONSIZE + GLYPHPADDINGADJUST);
         _glyph = [[UILabel alloc] initWithFrame:glyphFrame];
-        self.glyph.backgroundColor = [UIColor clearColor];
+        self.glyph.backgroundColor = color;
         self.glyph.textColor = [UIColor whiteColor];
         self.glyph.textAlignment = UITextAlignmentCenter;
         self.glyph.font = glyphFont;
