@@ -262,6 +262,8 @@
 {
     DIYMenuItem *item = [[DIYMenuItem alloc] initWithFrame:[self newItemFrame]];
     [item setName:name withIcon:image withColor:color withFont:font];
+    item.layer.shouldRasterize = true;
+    item.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     item.delegate = self;
     
     [self.menuItems addObject:item];
