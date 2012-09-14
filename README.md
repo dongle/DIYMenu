@@ -73,7 +73,7 @@ DIYMenuOptions.h holds some config options so you can set the default font and s
 DIYMenu is tested on iOS 5 and up.
 
 ## ARC
-DIYMenu as of v0.2.0 is built using ARC. If you are including EDStorage in a project that does not use Automatic Reference Counting (ARC), you will need to set the -fobjc-arc compiler flag on all of the EDStorage source files. To do this in Xcode, go to your active target and select the "Build Phases" tab. Now select all EDStorage source files, press Enter, insert -fobjc-arc and then "Done" to enable ARC for EDStorage.
+DIYMenu as of v0.2.0 is built using ARC. If you are including DIYMenu in a project that does not use Automatic Reference Counting (ARC), you will need to set the -fobjc-arc compiler flag on all of the DIYMenu source files. To do this in Xcode, go to your active target and select the "Build Phases" tab. Now select all DIYMenu source files, press Enter, insert -fobjc-arc and then "Done" to enable ARC for DIYMenu.
 
 ## LICENSE
 
