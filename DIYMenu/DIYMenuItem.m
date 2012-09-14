@@ -147,14 +147,4 @@
     }
 }
 
-#pragma mark - Dealloc
-
-- (void)dealloc
-{
-    _shadingView = nil;
-    _name = nil;
-    _icon = nil;
-    _glyph = nil;
-}
-
 @end

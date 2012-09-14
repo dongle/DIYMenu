@@ -38,15 +38,21 @@ CoreGraphics.framework
 ## Methods
 ```objective-c
 
+//
 // Show / dismiss / check status
+//
 + (void)show;
 + (void)dismiss;
 + (BOOL)isActivated;
 
+//
 // Setup
+//
 + (void)setDelegate:(NSObject<DIYMenuDelegate> *)delegate;
 
 + (void)addMenuItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color withFont:(UIFont *)font;
+// Alternately, use a glyph instead of a UIImage
++ (void)addMenuItem:(NSString *)name withGlyph:(NSString *)glyph withColor:(UIColor *)color withFont:(UIFont *)font withGlyphFont:(UIFont *)glyphFont;
 ```
 
 ## Delegate Methods
@@ -61,13 +67,13 @@ CoreGraphics.framework
 ```
 
 ## Configuration
-DIYMenuOptions holds some config options so you can set the default font and some sizes and stuff.
+DIYMenuOptions.h holds some config options so you can set the default font and some sizes and stuff.
 
 ## iOS Support
 DIYMenu is tested on iOS 5 and up.
 
 ## ARC
-If you are including DIYMenu in a project that uses [Automatic Reference Counting (ARC)](http://developer.apple.com/library/ios/#releasenotes/ObjectiveC/RN-TransitioningToARC/Introduction/Introduction.html), you will need to set the `-fno-objc-arc` compiler flag on all of the DIYCam source files. To do this in Xcode, go to your active target and select the "Build Phases" tab. Now select all DIYCam source files, press Enter, insert `-fno-objc-arc` and then "Done" to disable ARC for DIYCam.
+DIYMenu as of v0.2.0 is built using ARC. If you are including EDStorage in a project that does not use Automatic Reference Counting (ARC), you will need to set the -fobjc-arc compiler flag on all of the EDStorage source files. To do this in Xcode, go to your active target and select the "Build Phases" tab. Now select all EDStorage source files, press Enter, insert -fobjc-arc and then "Done" to enable ARC for EDStorage.
 
 ## LICENSE
 

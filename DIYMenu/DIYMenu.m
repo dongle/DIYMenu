@@ -22,7 +22,7 @@
 @property                     NSMutableArray            *menuItems;
 
 // State
-@property (assign)            BOOL                      isActivated;
+@property                     BOOL                      isActivated;
 
 // Internal
 @property (unsafe_unretained) NSObject<DIYMenuDelegate> *delegate;
@@ -204,7 +204,7 @@
             self.blockingView.alpha = 0.0f;
         } completion:^(BOOL finished) {
             [self removeFromSuperview];
-            _overlayWindow = nil;
+            self.overlayWindow = nil;
             
             [[UIApplication sharedApplication].windows enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(UIWindow *window, NSUInteger idx, BOOL *stop) {
                 if ([window isKindOfClass:[UIWindow class]] && window.windowLevel == UIWindowLevelNormal) {
@@ -280,9 +280,6 @@
     [self addSubview:item];
 }
 
-
-
-// TODO: do something smart with the menu frames
 + (void)hideMenuItemNamed:(NSString *)name
 {
     for (DIYMenuItem *item in [DIYMenu sharedView].menuItems) {
@@ -299,16 +296,6 @@
             item.hidden = false;
         }
     }
-}
-
-#pragma mark - Dealloc
-
-- (void)dealloc
-{
-    _menuItems = nil;
-    _delegate = nil;
-    _overlayWindow = nil;
-    _blockingView = nil;
 }
 
 @end
