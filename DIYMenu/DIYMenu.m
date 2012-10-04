@@ -152,13 +152,16 @@
         //
         
         [self.menuItems enumerateObjectsUsingBlock:^(DIYMenuItem *item, NSUInteger idx, BOOL *stop) {
-            item.frame = CGRectMake(item.frame.origin.x, (CGFloat) -ITEMHEIGHT * (idx + 2), item.frame.size.width, item.frame.size.height);
+            item.transform = CGAffineTransformMakeTranslation(0, -ITEMHEIGHT * (idx + 2));
         }];
         
         [UIView animateWithDuration:0.4f delay:0.01f options:UIViewAnimationOptionCurveEaseOut animations:^{
             
             [self.menuItems enumerateObjectsUsingBlock:^(DIYMenuItem *item, NSUInteger idx, BOOL *stop) {
-                item.frame = CGRectMake(item.frame.origin.x, item.menuPosition.y, item.frame.size.width, item.frame.size.height);
+//                NSLog(@"item frame before set for animation: %@", NSStringFromCGRect(item.frame));
+                item.transform = CGAffineTransformMakeTranslation(0, 0);
+//                NSLog(@"menu y end: %f", item.menuPosition.y);
+//                NSLog(@"item frame in animation: %@", NSStringFromCGRect(item.frame));
             }];
             
         } completion:^(BOOL finished) {
@@ -191,7 +194,7 @@
         [UIView animateWithDuration:0.4f delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
             
             [self.menuItems enumerateObjectsUsingBlock:^(DIYMenuItem *item, NSUInteger idx, BOOL *stop) {
-                item.frame = CGRectMake(item.frame.origin.x, (CGFloat) -ITEMHEIGHT * (idx + 2), item.frame.size.width, item.frame.size.height);
+                item.transform = CGAffineTransformMakeTranslation(0, (CGFloat) -ITEMHEIGHT * (idx + 2));
             }];
             
         } completion:^(BOOL finished) {
@@ -251,7 +254,12 @@
 {
     UIApplication *application = [UIApplication sharedApplication];
     
-    float padding = application.statusBarHidden ? 0 : application.statusBarFrame.size.height;
+    float padding;
+    if (UIInterfaceOrientationIsPortrait(application.statusBarOrientation)) {
+        padding = application.statusBarHidden ? 0 : application.statusBarFrame.size.height;
+    } else {
+        padding = application.statusBarHidden ? 0 : application.statusBarFrame.size.width;
+    }
     
     int itemCount = [self.menuItems count] + 1;
     
