@@ -52,7 +52,13 @@
     static dispatch_once_t once;
     static DIYMenu *sharedView;
     dispatch_once(&once, ^{
-        sharedView = [[DIYMenu alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        CGRect frame = [UIScreen mainScreen].bounds;
+        frame.origin.y += ITEMHEIGHT;
+        frame.size.height -= ITEMHEIGHT;
+        frame.origin.x += ITEMHEIGHT;
+        frame.size.width -= ITEMHEIGHT;
+        sharedView = [[DIYMenu alloc] initWithFrame:frame];
+        sharedView.clipsToBounds = true;
     });
     return sharedView;
 }
@@ -131,6 +137,9 @@
 - (void)showMenu
 {
     dispatch_async(dispatch_get_main_queue(), ^{
+        // Bring the overlay window container thing to the front
+        [self.overlayWindow makeKeyAndVisible];
+        
         // Add self to overlayWindow then make the window key for MAXIMUM BLOCKAGE
         if (!self.superview) {
             [self.overlayWindow addSubview:self];
@@ -141,11 +150,8 @@
             self.overlayWindow.transform = CGAffineTransformMakeRotation(DegreesToRadians(90));
             self.overlayWindow.frame = CGRectMake(0, 0, self.overlayWindow.frame.size.height, self.overlayWindow.frame.size.width);
             
-            self.frame = CGRectMake(0, 0, self.overlayWindow.frame.size.height, self.overlayWindow.frame.size.width);
+            self.frame = CGRectMake(0, ITEMHEIGHT, self.overlayWindow.frame.size.height, self.overlayWindow.frame.size.width - ITEMHEIGHT);
         }
-        
-        // Bring the overlay window container thing to the front
-        [self.overlayWindow makeKeyAndVisible];
         
         //
         // Animate in items
@@ -158,10 +164,7 @@
         [UIView animateWithDuration:0.4f delay:0.01f options:UIViewAnimationOptionCurveEaseOut animations:^{
             
             [self.menuItems enumerateObjectsUsingBlock:^(DIYMenuItem *item, NSUInteger idx, BOOL *stop) {
-//                NSLog(@"item frame before set for animation: %@", NSStringFromCGRect(item.frame));
                 item.transform = CGAffineTransformMakeTranslation(0, 0);
-//                NSLog(@"menu y end: %f", item.menuPosition.y);
-//                NSLog(@"item frame in animation: %@", NSStringFromCGRect(item.frame));
             }];
             
         } completion:^(BOOL finished) {
