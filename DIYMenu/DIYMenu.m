@@ -264,7 +264,7 @@
         padding = application.statusBarHidden ? 0 : application.statusBarFrame.size.width;
     }
     
-    int itemCount = [self.menuItems count] + 1;
+    int itemCount = [self.menuItems count];
     
     return CGRectMake(0, padding + itemCount*ITEMHEIGHT, self.frame.size.width, ITEMHEIGHT);
 }
