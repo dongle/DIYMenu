@@ -161,7 +161,7 @@
             item.transform = CGAffineTransformMakeTranslation(0, -ITEMHEIGHT * (idx + 2));
         }];
         
-        [UIView animateWithDuration:0.4f delay:0.01f options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [UIView animateWithDuration:0.2f delay:0.01f options:UIViewAnimationOptionCurveEaseOut animations:^{
             
             [self.menuItems enumerateObjectsUsingBlock:^(DIYMenuItem *item, NSUInteger idx, BOOL *stop) {
                 item.transform = CGAffineTransformMakeTranslation(0, 0);
@@ -173,7 +173,7 @@
         
         //
         
-        [UIView animateWithDuration:0.2f delay:0.2f options:UIViewAnimationOptionCurveEaseOut animations:^{
+        [UIView animateWithDuration:0.2f delay:0.0f options:UIViewAnimationOptionCurveEaseOut animations:^{
             self.blockingView.alpha = 0.75f;
         } completion:^(BOOL finished) {
             //
@@ -194,7 +194,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         
         // Animate out the items
-        [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
+        [UIView animateWithDuration:0.2f delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
             
             [self.menuItems enumerateObjectsUsingBlock:^(DIYMenuItem *item, NSUInteger idx, BOOL *stop) {
                 item.transform = CGAffineTransformMakeTranslation(0, (CGFloat) -ITEMHEIGHT * (idx + 2));
@@ -206,7 +206,7 @@
         
         
         // Fade out the overlay window and remove self from it
-        [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
+        [UIView animateWithDuration:0.2f delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
             self.blockingView.alpha = 0.0f;
         } completion:^(BOOL finished) {
             [self removeFromSuperview];
