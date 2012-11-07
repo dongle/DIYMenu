@@ -93,6 +93,11 @@
     [[DIYMenu sharedView] addItem:name withGlyph:glyph withColor:color withFont:font withGlyphFont:glyphFont];
 }
 
++ (void)clearMenu
+{
+    [[DIYMenu sharedView] clearMenu];
+}
+
 #pragma mark - Getters
 
 - (UIWindow *)overlayWindow
@@ -291,22 +296,13 @@
     [self addSubview:item];
 }
 
-+ (void)hideMenuItemNamed:(NSString *)name
+- (void)clearMenu
 {
-    for (DIYMenuItem *item in [DIYMenu sharedView].menuItems) {
-        if ([item.name.text isEqualToString:name]) {
-            item.hidden = true;
-        }
-    }
-}
-
-+ (void)showMenuItemNamed:(NSString *)name
-{
-    for (DIYMenuItem *item in [DIYMenu sharedView].menuItems) {
-        if ([item.name.text isEqualToString:name]) {
-            item.hidden = false;
-        }
-    }
+    [self.menuItems enumerateObjectsUsingBlock:^(DIYMenuItem *item, NSUInteger idx, BOOL *stop) {
+        [item removeFromSuperview];
+    }];
+    
+    [self.menuItems removeAllObjects];
 }
 
 @end

@@ -34,6 +34,8 @@
     
     //
     
+//    [DIYMenu clearMenu];
+    
     // A view controller with a button to show the menu
     DIYViewController *vc = [[DIYViewController alloc] init];
     self.window.rootViewController = vc;

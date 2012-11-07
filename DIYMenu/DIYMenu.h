@@ -41,8 +41,7 @@
 + (void)dismiss;
 + (BOOL)isActivated;
 
-+ (void)hideMenuItemNamed:(NSString *)name;
-+ (void)showMenuItemNamed:(NSString *)name;
++ (void)clearMenu;
 
 //
 
