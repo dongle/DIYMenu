@@ -42,8 +42,7 @@
     [self addSubview:self.shadingView];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedBackground)];
-    [self addGestureRecognizer:tap];
-    self.userInteractionEnabled = true;
+    [self.shadingView addGestureRecognizer:tap];
 }
 
 - (id)initWithFrame:(CGRect)frame
