@@ -7,40 +7,59 @@
 //
 
 #import "DIYMenu.h"
+
 #import "DIYMenuOptions.h"
-
 #import "DIYMenuItem.h"
-
-#import "DIYWindowPassthrough.h"
 
 #import <QuartzCore/QuartzCore.h>
 
-#define DegreesToRadians(x) ((x) * M_PI / 180.0)
-
 @interface DIYMenu ()
-// Menu Item management
-@property                     NSMutableArray            *menuItems;
+@property                       NSMutableArray              *menuItems;
+@property                       BOOL                        isActivated;
+@property                       BOOL                        isLandscape;
+@property                       UIView                      *shadingView;
 
-// State
-@property                     BOOL                      isActivated;
-
-// Internal
-@property (unsafe_unretained) NSObject<DIYMenuDelegate> *delegate;
-@property (nonatomic)         DIYWindowPassthrough      *overlayWindow;
-@property (weak)              UIView                    *blockingView;
+@property (unsafe_unretained)   NSObject<DIYMenuDelegate>   *delegate;
 @end
 
 @implementation DIYMenu
 
 #pragma mark - Init
 
+- (void)setup
+{
+    self.transform = CGAffineTransformMakeRotation(M_PI_2);
+    CGRect frame = [UIScreen mainScreen].bounds;
+    frame.origin.x -= ITEMHEIGHT;
+    self.frame = frame;
+    _menuItems = [[NSMutableArray alloc] init];
+    self.clipsToBounds = true;
+    
+    // Set up shadingview
+    _shadingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.height, frame.size.width)];
+    self.shadingView.backgroundColor = [UIColor blackColor];
+    self.shadingView.alpha = 0.0f;
+    [self addSubview:self.shadingView];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedBackground)];
+    [self addGestureRecognizer:tap];
+    self.userInteractionEnabled = true;
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _menuItems = [[NSMutableArray alloc] init];
-        self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        self.autoresizesSubviews = true;
+        [self setup];
+    }
+    return self;
+}
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        [self setup];
     }
     return self;
 }
@@ -53,12 +72,7 @@
     static DIYMenu *sharedView;
     dispatch_once(&once, ^{
         CGRect frame = [UIScreen mainScreen].bounds;
-        frame.origin.y += ITEMHEIGHT;
-        frame.size.height -= ITEMHEIGHT;
-        frame.origin.x += ITEMHEIGHT;
-        frame.size.width -= ITEMHEIGHT;
-        sharedView = [[DIYMenu alloc] initWithFrame:frame];
-        sharedView.clipsToBounds = true;
+        sharedView = [[DIYMenu alloc] init];
     });
     return sharedView;
 }
@@ -98,93 +112,34 @@
     [[DIYMenu sharedView] clearMenu];
 }
 
-#pragma mark - Getters
-
-- (UIWindow *)overlayWindow
-{
-    if(!self->_overlayWindow) {
-        CGRect screenBounds = [UIScreen mainScreen].bounds;
-        UIApplication *application = [UIApplication sharedApplication];
-        
-        _overlayWindow = [[DIYWindowPassthrough alloc] initWithFrame:screenBounds];
-        self->_overlayWindow.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        self->_overlayWindow.backgroundColor = [UIColor clearColor];
-        self->_overlayWindow.autoresizesSubviews = true;
-        self->_overlayWindow.exclusiveTouch = false;
-        
-        CGFloat padding = ITEMHEIGHT;
-        if (!application.statusBarHidden) {
-            if (UIInterfaceOrientationIsPortrait(application.statusBarOrientation)) {
-                padding += application.statusBarFrame.size.height;
-            }
-            else {
-                padding += application.statusBarFrame.size.width;
-            }
-        }
-        
-        CGRect blockingFrame = CGRectMake(screenBounds.origin.x, screenBounds.origin.y + padding, screenBounds.size.width, screenBounds.size.height);
-        UIView *blocking = [[UIView alloc] initWithFrame:blockingFrame];
-        _blockingView = blocking;
-        self.blockingView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        self.blockingView.backgroundColor = [UIColor blackColor];
-        self.blockingView.alpha = 0.0f;
-        
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedBackground)];
-        [self.blockingView addGestureRecognizer:tap];
-        
-        [self->_overlayWindow addSubview:self.blockingView];
-    }
-    return self->_overlayWindow;
-}
-
 #pragma mark - Show and Dismiss methods
 
 - (void)showMenu
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        // Bring the overlay window container thing to the front
-        [self.overlayWindow makeKeyAndVisible];
-        
-        // Add self to overlayWindow then make the window key for MAXIMUM BLOCKAGE
-        if (!self.superview) {
-            [self.overlayWindow addSubview:self];
+    NSEnumerator *frontToBackWindows = [[[UIApplication sharedApplication]windows]reverseObjectEnumerator];
+    for (UIWindow *window in frontToBackWindows) {
+        if (window.windowLevel == UIWindowLevelNormal) {
+            [window addSubview:self];
+            break;
         }
-        
-        // Ensure orientation is proper
-        if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
-            self.overlayWindow.transform = CGAffineTransformMakeRotation(DegreesToRadians(90));
-            self.overlayWindow.frame = CGRectMake(0, 0, self.overlayWindow.frame.size.height, self.overlayWindow.frame.size.width);
-            
-            self.frame = CGRectMake(0, ITEMHEIGHT, self.overlayWindow.frame.size.height, self.overlayWindow.frame.size.width - ITEMHEIGHT);
-        }
-        
-        //
-        // Animate in items
-        //
-        
+    }
+    
+    //
+    // Animate in items & darken background
+    //
+    
+    [self.menuItems enumerateObjectsUsingBlock:^(DIYMenuItem *item, NSUInteger idx, BOOL *stop) {
+        item.transform = CGAffineTransformMakeTranslation(0, -ITEMHEIGHT * (idx + 2));
+    }];
+    
+    [UIView animateWithDuration:0.2f delay:0.0f options:UIViewAnimationOptionCurveEaseOut animations:^{
         [self.menuItems enumerateObjectsUsingBlock:^(DIYMenuItem *item, NSUInteger idx, BOOL *stop) {
-            item.transform = CGAffineTransformMakeTranslation(0, -ITEMHEIGHT * (idx + 2));
+            item.transform = CGAffineTransformMakeTranslation(0, 0);
         }];
-        
-        [UIView animateWithDuration:0.2f delay:0.01f options:UIViewAnimationOptionCurveEaseOut animations:^{
-            
-            [self.menuItems enumerateObjectsUsingBlock:^(DIYMenuItem *item, NSUInteger idx, BOOL *stop) {
-                item.transform = CGAffineTransformMakeTranslation(0, 0);
-            }];
-            
-        } completion:^(BOOL finished) {
-            //
-        }];
-        
+        self.shadingView.alpha = 0.75f;
+    } completion:^(BOOL finished) {
         //
-        
-        [UIView animateWithDuration:0.2f delay:0.0f options:UIViewAnimationOptionCurveEaseOut animations:^{
-            self.blockingView.alpha = 0.75f;
-        } completion:^(BOOL finished) {
-            //
-        }];
-        
-    });
+    }];
     
     self.isActivated = true;
     
@@ -196,35 +151,21 @@
 
 - (void)dismissMenu
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        // Animate out the items
-        [UIView animateWithDuration:0.2f delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
-            
-            [self.menuItems enumerateObjectsUsingBlock:^(DIYMenuItem *item, NSUInteger idx, BOOL *stop) {
-                item.transform = CGAffineTransformMakeTranslation(0, (CGFloat) -ITEMHEIGHT * (idx + 2));
-            }];
-            
-        } completion:^(BOOL finished) {
-            //
+    // Animate out the items
+    [UIView animateWithDuration:0.2f delay:0.0f options:UIViewAnimationOptionCurveEaseIn animations:^{
+        [self.menuItems enumerateObjectsUsingBlock:^(DIYMenuItem *item, NSUInteger idx, BOOL *stop) {
+            item.transform = CGAffineTransformMakeTranslation(0, (CGFloat) -ITEMHEIGHT * (idx + 2));
         }];
-        
-        
-        // Fade out the overlay window and remove self from it
-        [UIView animateWithDuration:0.2f delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
-            self.blockingView.alpha = 0.0f;
-        } completion:^(BOOL finished) {
-            [self removeFromSuperview];
-            self.overlayWindow = nil;
-            
-            [[UIApplication sharedApplication].windows enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(UIWindow *window, NSUInteger idx, BOOL *stop) {
-                if ([window isKindOfClass:[UIWindow class]] && window.windowLevel == UIWindowLevelNormal) {
-                    [window makeKeyWindow];
-                    *stop = YES;
-                }
-            }];
-        }];
-    });
+    } completion:^(BOOL finished) {
+        //
+    }];
+    
+    // Fade out the overlay window and remove self from it
+    [UIView animateWithDuration:0.2f delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
+        self.shadingView.alpha = 0.0f;
+    } completion:^(BOOL finished) {
+        [self removeFromSuperview];
+    }];
     
     self.isActivated = false;
 }
@@ -245,17 +186,6 @@
     [self dismissMenu];
 }
 
-- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
-{
-    BOOL passTouch = false;
-    for (UIView *view in self.subviews) {
-        if (!view.hidden && [view pointInside:[self convertPoint:point toView:view] withEvent:event]) {
-            passTouch = true;
-        }
-    }
-    return passTouch;
-}
-
 #pragma mark - Item management
 
 - (CGRect)newItemFrame
@@ -271,7 +201,7 @@
     
     int itemCount = [self.menuItems count];
     
-    return CGRectMake(0, padding + itemCount*ITEMHEIGHT, self.frame.size.width, ITEMHEIGHT);
+    return CGRectMake(0, padding + itemCount*ITEMHEIGHT, self.frame.size.height, ITEMHEIGHT);
 }
 
 - (void)addItem:(NSString *)name withIcon:(UIImage *)image withColor:(UIColor *)color withFont:(UIFont *)font
