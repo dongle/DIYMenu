@@ -70,7 +70,6 @@
     static dispatch_once_t once;
     static DIYMenu *sharedView;
     dispatch_once(&once, ^{
-        CGRect frame = [UIScreen mainScreen].bounds;
         sharedView = [[DIYMenu alloc] init];
     });
     return sharedView;
